@@ -1,0 +1,2163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance Manager</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:#070914;
+    color:#fff;
+    min-height:100vh;
+}
+
+button,input,textarea,select{font:inherit}
+
+button{cursor:pointer}
+
+.hidden{display:none!important}
+
+/* LOCK */
+
+#lock{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    background:
+    radial-gradient(circle at 50% 10%,#40358a 0,#15132d 35%,#070914 75%);
+}
+
+.lock-card{
+    width:420px;
+    max-width:100%;
+    padding:40px 30px;
+    border:1px solid #454968;
+    border-radius:32px;
+    text-align:center;
+    background:rgba(17,20,38,.94);
+    box-shadow:0 30px 100px #000;
+}
+
+.lock-logo{
+    width:80px;
+    height:80px;
+    margin:auto;
+    border-radius:25px;
+    display:grid;
+    place-items:center;
+    font-size:38px;
+    background:linear-gradient(135deg,#8b7cff,#4faaff);
+}
+
+.lock-card h1{
+    margin-top:22px;
+    font-size:42px;
+}
+
+.lock-card h1 span{color:#8272ff}
+
+.lock-card p{
+    margin:12px 0 25px;
+    color:#8991aa;
+}
+
+#password{
+    width:100%;
+    height:55px;
+    padding:0 18px;
+    border:1px solid #353b55;
+    border-radius:15px;
+    outline:none;
+    background:#090c18;
+    color:white;
+    text-align:center;
+}
+
+.primary{
+    border:0;
+    color:white;
+    background:linear-gradient(110deg,#7665ff,#4b9fff);
+}
+
+#unlock{
+    width:100%;
+    height:55px;
+    margin-top:12px;
+    border-radius:15px;
+    font-weight:800;
+}
+
+#error{
+    min-height:18px;
+    color:#ff7080!important;
+}
+
+/* APP */
+
+#app{
+    max-width:1150px;
+    margin:auto;
+    padding:30px 20px 70px;
+}
+
+/* HEADER */
+
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    min-height:250px;
+}
+
+.eyebrow{
+    color:#858da8;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:3px;
+}
+
+.header h1{
+    margin-top:12px;
+    font-size:clamp(48px,8vw,82px);
+    line-height:.88;
+    letter-spacing:-5px;
+}
+
+.header h1 span{color:#8272ff}
+
+.subtitle{
+    margin-top:22px;
+    color:#8991a9;
+    font-size:17px;
+}
+
+/* ROBOT */
+
+.robot{
+    width:210px;
+    height:220px;
+    position:relative;
+    animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+    50%{transform:translateY(-10px)}
+}
+
+.head{
+    position:absolute;
+    top:10px;
+    left:42px;
+    width:125px;
+    height:100px;
+    border-radius:30px;
+    background:linear-gradient(135deg,#897aff,#5141bd);
+    box-shadow:0 15px 35px #4f45bd55;
+}
+
+.head:before{
+    content:"";
+    position:absolute;
+    width:4px;
+    height:28px;
+    top:-28px;
+    left:60px;
+    background:#8272ff;
+}
+
+.head:after{
+    content:"";
+    position:absolute;
+    width:11px;
+    height:11px;
+    top:-35px;
+    left:57px;
+    border-radius:50%;
+    background:#6bd1ff;
+    box-shadow:0 0 18px #6bd1ff;
+}
+
+.eye{
+    position:absolute;
+    top:33px;
+    width:14px;
+    height:19px;
+    border-radius:50%;
+    background:#c4f3ff;
+    box-shadow:0 0 12px #6bd1ff;
+}
+
+.eye.one{left:34px}
+.eye.two{right:34px}
+
+.mouth{
+    position:absolute;
+    bottom:18px;
+    left:47px;
+    width:32px;
+    height:7px;
+    border-radius:20px;
+    background:#c5bdff;
+}
+
+.body{
+    position:absolute;
+    top:125px;
+    left:62px;
+    width:85px;
+    height:70px;
+    display:grid;
+    place-items:center;
+    border-radius:23px;
+    border:1px solid #424a67;
+    background:#151a2b;
+    font-size:28px;
+}
+
+.arm{
+    position:absolute;
+    top:130px;
+    width:15px;
+    height:58px;
+    border-radius:20px;
+    background:#6269bd;
+}
+
+.arm.left{
+    left:37px;
+    transform:rotate(25deg);
+}
+
+.arm.right{
+    right:37px;
+    transform:rotate(-25deg);
+}
+
+/* BALANCE */
+
+.balance{
+    padding:30px;
+    border-radius:30px;
+    background:linear-gradient(115deg,#5546d9,#7868ff,#479dff);
+    box-shadow:0 25px 70px #5b50dc33;
+}
+
+.balance-top{
+    display:flex;
+    justify-content:space-between;
+}
+
+.balance-icon{
+    width:52px;
+    height:52px;
+    display:grid;
+    place-items:center;
+    border-radius:16px;
+    background:#ffffff20;
+    font-size:25px;
+}
+
+.balance h2{
+    margin-top:28px;
+    font-size:clamp(45px,7vw,70px);
+    letter-spacing:-3px;
+}
+
+.balance small{color:#ffffffaa}
+
+/* CARDS */
+
+.two{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-top:15px;
+}
+
+.info-card{
+    padding:22px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    border:1px solid #2c3249;
+    border-radius:23px;
+    background:#111526;
+}
+
+.icon{
+    width:55px;
+    height:55px;
+    flex-shrink:0;
+    display:grid;
+    place-items:center;
+    border-radius:17px;
+    background:#24213f;
+    font-size:24px;
+}
+
+.info-card p{
+    color:#777f96;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.info-card h3{
+    margin-top:6px;
+    font-size:24px;
+}
+
+.info-card .grow{flex:1}
+
+.small-btn{
+    padding:11px 15px;
+    border:0;
+    border-radius:12px;
+    color:#aaa0ff;
+    background:#292f45;
+    font-weight:800;
+}
+
+/* NAV */
+
+.nav{
+    display:flex;
+    gap:10px;
+    margin:28px 0;
+    overflow:auto;
+}
+
+.nav button{
+    white-space:nowrap;
+    padding:13px 19px;
+    border:1px solid #30364d;
+    border-radius:14px;
+    color:#9199af;
+    background:#111526;
+}
+
+.nav button.active{
+    color:white;
+    border-color:transparent;
+    background:linear-gradient(110deg,#7665ff,#4b9fff);
+}
+
+/* PAGES */
+
+.page{display:none}
+.page.active{display:block}
+
+.page-head{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.page-head h2{
+    margin-top:7px;
+    font-size:38px;
+}
+
+.page-head p{
+    margin-top:7px;
+    color:#858da5;
+}
+
+.add{
+    padding:15px 20px;
+    border:0;
+    border-radius:14px;
+    font-weight:800;
+}
+
+/* FORM */
+
+.form{
+    display:none;
+    margin-top:18px;
+    padding:22px;
+    border:1px solid #30364d;
+    border-radius:23px;
+    background:#111526;
+}
+
+.form.show{display:block}
+
+.form input,
+.form select{
+    width:100%;
+    height:52px;
+    margin-top:10px;
+    padding:0 15px;
+    border:1px solid #30364d;
+    border-radius:13px;
+    outline:none;
+    background:#080b15;
+    color:white;
+}
+
+.form-actions{
+    display:flex;
+    gap:10px;
+    margin-top:12px;
+}
+
+.form-actions button{
+    flex:1;
+    height:48px;
+    border:0;
+    border-radius:12px;
+    font-weight:800;
+}
+
+.cancel{
+    background:#292f43;
+    color:#aab0c2;
+}
+
+.form-error{
+    margin-top:8px;
+    color:#ff7180;
+    font-size:12px;
+}
+
+/* EXPENSE */
+
+.expense-card{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:12px;
+    padding:17px;
+    border:1px solid #292f42;
+    border-radius:21px;
+    background:#111526;
+}
+
+.expense-icon{
+    width:53px;
+    height:53px;
+    display:grid;
+    place-items:center;
+    border-radius:16px;
+    background:#24213f;
+    font-size:23px;
+}
+
+.expense-info{flex:1}
+
+.expense-info h3{font-size:17px}
+
+.expense-info p{
+    margin-top:5px;
+    color:#727b93;
+    font-size:11px;
+}
+
+.expense-amount{
+    color:#ff7080;
+    font-weight:900;
+}
+
+.delete{
+    width:36px;
+    height:36px;
+    border:0;
+    border-radius:10px;
+    background:#302033;
+    color:#ff7080;
+    font-size:20px;
+}
+
+.empty{
+    margin-top:15px;
+    padding:45px 20px;
+    border:1px dashed #30374d;
+    border-radius:22px;
+    text-align:center;
+    color:#777f95;
+}
+
+.empty strong{
+    display:block;
+    color:white;
+    margin:8px 0;
+}
+
+/* NOTES */
+
+.notes{
+    margin-top:20px;
+    padding:23px;
+    border:1px solid #292f43;
+    border-radius:23px;
+    background:#111526;
+}
+
+.notes h2{margin-top:7px}
+
+textarea{
+    width:100%;
+    min-height:140px;
+    margin-top:15px;
+    padding:15px;
+    resize:vertical;
+    border:1px solid #30374d;
+    border-radius:14px;
+    outline:none;
+    background:#080b15;
+    color:white;
+}
+
+.note-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:10px;
+}
+
+.note-bottom span{
+    color:#727b93;
+    font-size:12px;
+}
+
+/* STATS */
+
+.stat-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-top:20px;
+}
+
+.stat{
+    padding:22px;
+    border:1px solid #292f42;
+    border-radius:22px;
+    background:#111526;
+}
+
+.stat p{
+    color:#777f95;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.stat h3{
+    margin-top:8px;
+    font-size:27px;
+}
+
+.chart-card{
+    margin-top:18px;
+    padding:24px;
+    border:1px solid #292f42;
+    border-radius:24px;
+    background:#111526;
+}
+
+.chart{
+    height:280px;
+    margin-top:20px;
+    display:flex;
+    align-items:end;
+    justify-content:space-around;
+    gap:8px;
+    border-bottom:1px solid #30374d;
+}
+
+.bar-column{
+    height:100%;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:end;
+    align-items:center;
+}
+
+.bar-value{
+    min-height:15px;
+    color:#8c94aa;
+    font-size:9px;
+}
+
+.bar{
+    width:35px;
+    max-width:80%;
+    min-height:3px;
+    border-radius:9px 9px 3px 3px;
+    background:linear-gradient(to top,#6251e8,#63c0ff);
+}
+
+.bar-day{
+    margin:7px 0;
+    color:#737c93;
+    font-size:10px;
+}
+
+.tip{
+    margin-top:18px;
+    padding:23px;
+    border:1px solid #3c3765;
+    border-radius:22px;
+    background:#17172c;
+}
+
+.tip h3{
+    margin-top:8px;
+    line-height:1.5;
+    color:#d8d5ff;
+}
+
+/* CATEGORY */
+
+.category-list{
+    margin-top:15px;
+}
+
+.category-row{
+    margin-top:10px;
+    padding:15px;
+    border-radius:15px;
+    background:#111526;
+    border:1px solid #292f42;
+}
+
+.category-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+}
+
+.progress{
+    height:7px;
+    overflow:hidden;
+    border-radius:10px;
+    background:#252b3e;
+}
+
+.progress span{
+    display:block;
+    height:100%;
+    border-radius:10px;
+    background:linear-gradient(90deg,#7665ff,#55baff);
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    #app{padding:22px 14px 60px}
+
+    .header{min-height:210px}
+
+    .robot{display:none}
+
+    .header h1{
+        font-size:53px;
+    }
+
+    .two,
+    .stat-grid{
+        grid-template-columns:1fr;
+    }
+
+    .page-head{
+        align-items:stretch;
+        flex-direction:column;
+    }
+
+    .add{width:100%}
+
+    .expense-card{
+        padding:13px;
+    }
+
+    .expense-amount{
+        font-size:13px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOCK SCREEN -->
+
+<div id="lock">
+
+    <div class="lock-card">
+
+        <div class="lock-logo">🔐</div>
+
+        <h1>
+            FINANCE
+            <span>MANAGER</span>
+        </h1>
+
+        <p>Your money. Your control.</p>
+
+        <input
+            id="password"
+            type="password"
+            placeholder="Enter password"
+        >
+
+        <button
+            id="unlock"
+            class="primary"
+        >
+            UNLOCK →
+        </button>
+
+        <p id="error"></p>
+
+    </div>
+
+</div>
+
+
+<!-- MAIN APP -->
+
+<div id="app">
+
+    <!-- HEADER -->
+
+    <section class="header">
+
+        <div>
+
+            <div class="eyebrow">
+                SMART MONEY CONTROL
+            </div>
+
+            <h1>
+                FINANCE
+                <span>MANAGER</span>
+            </h1>
+
+            <div class="subtitle">
+                Take control of your money.
+            </div>
+
+        </div>
+
+
+        <div class="robot">
+
+            <div class="head">
+                <div class="eye one"></div>
+                <div class="eye two"></div>
+                <div class="mouth"></div>
+            </div>
+
+            <div class="body">₹</div>
+
+            <div class="arm left"></div>
+            <div class="arm right"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- BALANCE -->
+
+    <section class="balance">
+
+        <div class="balance-top">
+
+            <div>
+
+                <div class="eyebrow" style="color:#ffffffaa">
+                    TOTAL BALANCE
+                </div>
+
+                <small>● Available money</small>
+
+            </div>
+
+            <div class="balance-icon">₹</div>
+
+        </div>
+
+        <h2 id="balance">₹0</h2>
+
+        <small id="balanceStatus">
+            Set your monthly income to begin.
+        </small>
+
+    </section>
+
+
+    <!-- INCOME / EXPENSE -->
+
+    <section class="two">
+
+        <div class="info-card">
+
+            <div class="icon">💼</div>
+
+            <div class="grow">
+
+                <p>MONTHLY INCOME</p>
+
+                <h3 id="income">₹0</h3>
+
+            </div>
+
+            <button
+                class="small-btn"
+                onclick="setIncome()"
+            >
+                EDIT
+            </button>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="icon">💸</div>
+
+            <div class="grow">
+
+                <p>TOTAL EXPENSES</p>
+
+                <h3 id="totalExpenses">₹0</h3>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- NAV -->
+
+    <nav class="nav">
+
+        <button
+            class="active"
+            onclick="go('home',this)"
+        >
+            🏠 Home
+        </button>
+
+        <button
+            onclick="go('expenses',this)"
+        >
+            💸 Expenses
+        </button>
+
+        <button
+            onclick="go('stats',this)"
+        >
+            📊 Stats
+        </button>
+
+    </nav>
+
+
+    <!-- HOME -->
+
+    <section
+        id="home"
+        class="page active"
+    >
+
+        <div class="page-head">
+
+            <div>
+
+                <div class="eyebrow">
+                    MONEY TRACKER
+                </div>
+
+                <h2>Recent Expenses</h2>
+
+                <p>Your latest transactions.</p>
+
+            </div>
+
+            <button
+                class="add primary"
+                onclick="openExpense()"
+            >
+                + ADD EXPENSE
+            </button>
+
+        </div>
+
+
+        <div id="recent"></div>
+
+
+        <div class="notes">
+
+            <div class="eyebrow">
+                QUICK NOTES
+            </div>
+
+            <h2>Money Notes</h2>
+
+            <textarea
+                id="notes"
+                placeholder="Write something about your money..."
+            ></textarea>
+
+            <div class="note-bottom">
+
+                <span id="noteStatus">
+                    Not saved
+                </span>
+
+                <button
+                    class="small-btn"
+                    onclick="saveNotes()"
+                >
+                    SAVE NOTES
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EXPENSES -->
+
+    <section
+        id="expenses"
+        class="page"
+    >
+
+        <div class="page-head">
+
+            <div>
+
+                <div class="eyebrow">
+                    MONEY TRACKER
+                </div>
+
+                <h2>Expenses</h2>
+
+                <p>Every expense automatically reduces your balance.</p>
+
+            </div>
+
+            <button
+                class="add primary"
+                onclick="openExpense()"
+            >
+                + ADD EXPENSE
+            </button>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <div
+            id="expenseForm"
+            class="form"
+        >
+
+            <div class="eyebrow">
+                NEW TRANSACTION
+            </div>
+
+            <h3 style="margin-top:7px">
+                Add an expense
+            </h3>
+
+            <input
+                id="title"
+                placeholder="Expense title e.g. Food"
+            >
+
+            <input
+                id="amount"
+                type="number"
+                min="1"
+                placeholder="Amount spent"
+            >
+
+            <select id="category">
+
+                <option value="Food">🍔 Food</option>
+                <option value="Shopping">🛍️ Shopping</option>
+                <option value="Travel">🚗 Travel</option>
+                <option value="Education">📚 Education</option>
+                <option value="Sports">⚽ Sports</option>
+                <option value="Entertainment">🎮 Entertainment</option>
+                <option value="Bills">📄 Bills</option>
+                <option value="Other">💰 Other</option>
+
+            </select>
+
+
+            <div class="form-actions">
+
+                <button
+                    class="cancel"
+                    onclick="closeExpense()"
+                >
+                    CANCEL
+                </button>
+
+                <button
+                    class="primary"
+                    onclick="saveExpense()"
+                >
+                    SAVE EXPENSE
+                </button>
+
+            </div>
+
+            <div
+                id="formError"
+                class="form-error"
+            ></div>
+
+        </div>
+
+
+        <div id="allExpenses"></div>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <section
+        id="stats"
+        class="page"
+    >
+
+        <div class="eyebrow">
+            ANALYTICS
+        </div>
+
+        <h2 style="font-size:40px;margin-top:7px">
+            Weekly Stats
+        </h2>
+
+        <p style="color:#858da5;margin-top:7px">
+            Understand your spending habits.
+        </p>
+
+
+        <div class="stat-grid">
+
+            <div class="stat">
+
+                <p>THIS WEEK</p>
+
+                <h3 id="week">₹0</h3>
+
+            </div>
+
+
+            <div class="stat">
+
+                <p>TRANSACTIONS</p>
+
+                <h3 id="count">0</h3>
+
+            </div>
+
+
+            <div class="stat">
+
+                <p>AVERAGE</p>
+
+                <h3 id="average">₹0</h3>
+
+            </div>
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <div class="eyebrow">
+                SPENDING
+            </div>
+
+            <h3 style="margin-top:7px;font-size:23px">
+                Last 7 Days
+            </h3>
+
+            <div
+                id="chart"
+                class="chart"
+            ></div>
+
+        </div>
+
+
+        <div class="tip">
+
+            <div class="eyebrow">
+                💡 SMART TIP
+            </div>
+
+            <h3 id="tip">
+                Add expenses to receive spending tips.
+            </h3>
+
+        </div>
+
+
+        <div style="margin-top:20px">
+
+            <div class="eyebrow">
+                CATEGORY BREAKDOWN
+            </div>
+
+            <h3 style="margin-top:7px;font-size:24px">
+                Where your money goes
+            </h3>
+
+            <div
+                id="categories"
+                class="category-list"
+            ></div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   FINANCE MANAGER
+   EVERYTHING IS INSIDE THIS ONE FILE
+   PASSWORD = 7890
+===================================================== */
+
+
+/* DATA */
+
+let income =
+    Number(localStorage.getItem("fm_income")) || 0;
+
+let expenses =
+    JSON.parse(
+        localStorage.getItem("fm_expenses") || "[]"
+    );
+
+let notes =
+    localStorage.getItem("fm_notes") || "";
+
+
+/* HELPERS */
+
+function money(value){
+
+    return "₹" +
+        Number(value).toLocaleString("en-IN");
+
+}
+
+
+function totalSpent(){
+
+    return expenses.reduce(
+        (sum,e) => sum + Number(e.amount),
+        0
+    );
+
+}
+
+
+function currentBalance(){
+
+    /*
+       THIS IS THE IMPORTANT PART:
+
+       BALANCE = INCOME - ALL EXPENSES
+    */
+
+    return income - totalSpent();
+
+}
+
+
+function saveData(){
+
+    localStorage.setItem(
+        "fm_income",
+        income
+    );
+
+    localStorage.setItem(
+        "fm_expenses",
+        JSON.stringify(expenses)
+    );
+
+    localStorage.setItem(
+        "fm_notes",
+        notes
+    );
+
+}
+
+
+/* LOCK */
+
+document
+.getElementById("unlock")
+.addEventListener(
+    "click",
+    unlock
+);
+
+
+document
+.getElementById("password")
+.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key === "Enter"){
+            unlock();
+        }
+
+    }
+);
+
+
+function unlock(){
+
+    const password =
+        document
+        .getElementById("password")
+        .value;
+
+    if(password === "7890"){
+
+        document
+        .getElementById("lock")
+        .classList.add("hidden");
+
+        document
+        .getElementById("app")
+        .classList.remove("hidden");
+
+        update();
+
+    }else{
+
+        document
+        .getElementById("error")
+        .textContent =
+            "Incorrect password.";
+
+    }
+
+}
+
+
+/* NAVIGATION */
+
+function go(page,button){
+
+    document
+    .querySelectorAll(".page")
+    .forEach(
+        p => p.classList.remove("active")
+    );
+
+    document
+    .getElementById(page)
+    .classList.add("active");
+
+
+    document
+    .querySelectorAll(".nav button")
+    .forEach(
+        b => b.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+
+    if(page === "stats"){
+        updateStats();
+    }
+
+}
+
+
+/* INCOME */
+
+function setIncome(){
+
+    const value =
+        prompt(
+            "Enter your monthly income:"
+        );
+
+    if(value === null)return;
+
+    const amount =
+        Number(value);
+
+    if(
+        !Number.isFinite(amount) ||
+        amount < 0
+    ){
+
+        alert("Please enter a valid amount.");
+
+        return;
+
+    }
+
+    income = amount;
+
+    saveData();
+
+    update();
+
+}
+
+
+/* EXPENSE FORM */
+
+function openExpense(){
+
+    document
+    .querySelectorAll(".page")
+    .forEach(
+        p => p.classList.remove("active")
+    );
+
+    document
+    .getElementById("expenses")
+    .classList.add("active");
+
+
+    document
+    .querySelectorAll(".nav button")
+    .forEach(
+        b => b.classList.remove("active")
+    );
+
+    document
+    .querySelectorAll(".nav button")[1]
+    .classList.add("active");
+
+
+    document
+    .getElementById("expenseForm")
+    .classList.add("show");
+
+
+    document
+    .getElementById("title")
+    .focus();
+
+}
+
+
+function closeExpense(){
+
+    document
+    .getElementById("expenseForm")
+    .classList.remove("show");
+
+    document
+    .getElementById("title")
+    .value = "";
+
+    document
+    .getElementById("amount")
+    .value = "";
+
+    document
+    .getElementById("formError")
+    .textContent = "";
+
+}
+
+
+/* SAVE EXPENSE */
+
+function saveExpense(){
+
+    const title =
+        document
+        .getElementById("title")
+        .value
+        .trim();
+
+    const amount =
+        Number(
+            document
+            .getElementById("amount")
+            .value
+        );
+
+    const category =
+        document
+        .getElementById("category")
+        .value;
+
+    const error =
+        document
+        .getElementById("formError");
+
+
+    if(!title){
+
+        error.textContent =
+            "Please enter a title.";
+
+        return;
+
+    }
+
+
+    if(
+        !Number.isFinite(amount) ||
+        amount <= 0
+    ){
+
+        error.textContent =
+            "Please enter a valid amount.";
+
+        return;
+
+    }
+
+
+    /*
+       ADD EXPENSE
+
+       The balance does NOT need
+       to be manually changed.
+
+       It is automatically calculated:
+
+       income - total expenses
+    */
+
+    expenses.unshift({
+
+        id:Date.now(),
+
+        title:title,
+
+        amount:amount,
+
+        category:category,
+
+        date:new Date().toISOString()
+
+    });
+
+
+    saveData();
+
+    closeExpense();
+
+    update();
+
+}
+
+
+/* DELETE */
+
+function deleteExpense(id){
+
+    expenses =
+        expenses.filter(
+            e => e.id !== id
+        );
+
+    saveData();
+
+    update();
+
+}
+
+
+/* CATEGORY ICON */
+
+function categoryIcon(category){
+
+    const icons = {
+
+        Food:"🍔",
+        Shopping:"🛍️",
+        Travel:"🚗",
+        Education:"📚",
+        Sports:"⚽",
+        Entertainment:"🎮",
+        Bills:"📄",
+        Other:"💰"
+
+    };
+
+    return icons[category] || "💰";
+
+}
+
+
+/* EXPENSE CARD */
+
+function createExpenseCard(
+    expense,
+    showDelete = true
+){
+
+    const card =
+        document.createElement("div");
+
+    card.className =
+        "expense-card";
+
+
+    const icon =
+        document.createElement("div");
+
+    icon.className =
+        "expense-icon";
+
+    icon.textContent =
+        categoryIcon(
+            expense.category
+        );
+
+
+    const info =
+        document.createElement("div");
+
+    info.className =
+        "expense-info";
+
+
+    const title =
+        document.createElement("h3");
+
+    title.textContent =
+        expense.title;
+
+
+    const details =
+        document.createElement("p");
+
+    details.textContent =
+        expense.category +
+        " • " +
+        new Date(expense.date)
+        .toLocaleDateString(
+            "en-IN",
+            {
+                day:"numeric",
+                month:"short",
+                year:"numeric"
+            }
+        );
+
+
+    info.appendChild(title);
+    info.appendChild(details);
+
+
+    const amount =
+        document.createElement("div");
+
+    amount.className =
+        "expense-amount";
+
+    amount.textContent =
+        "-" + money(expense.amount);
+
+
+    card.appendChild(icon);
+    card.appendChild(info);
+    card.appendChild(amount);
+
+
+    if(showDelete){
+
+        const del =
+            document.createElement("button");
+
+        del.className =
+            "delete";
+
+        del.textContent = "×";
+
+        del.onclick =
+            () => deleteExpense(expense.id);
+
+        card.appendChild(del);
+
+    }
+
+
+    return card;
+
+}
+
+
+/* RENDER */
+
+function renderExpenses(){
+
+    const all =
+        document
+        .getElementById("allExpenses");
+
+    const recent =
+        document
+        .getElementById("recent");
+
+
+    all.innerHTML = "";
+    recent.innerHTML = "";
+
+
+    if(expenses.length === 0){
+
+        const empty = document.createElement("div");
+
+        empty.className = "empty";
+
+        empty.innerHTML = `
+            <div style="font-size:36px">💸</div>
+            <strong>No expenses yet</strong>
+            <div>Add your first expense to start tracking.</div>
+        `;
+
+        all.appendChild(empty);
+
+        recent.appendChild(
+            empty.cloneNode(true)
+        );
+
+        return;
+
+    }
+
+
+    expenses.forEach(
+        expense => {
+
+            all.appendChild(
+                createExpenseCard(expense,true)
+            );
+
+        }
+    );
+
+
+    expenses
+    .slice(0,3)
+    .forEach(
+        expense => {
+
+            recent.appendChild(
+                createExpenseCard(expense,false)
+            );
+
+        }
+    );
+
+}
+
+
+/* SEVEN DAYS */
+
+function getDays(){
+
+    const days = [];
+
+    const today = new Date();
+
+    today.setHours(0,0,0,0);
+
+
+    for(let i=6;i>=0;i--){
+
+        const d = new Date(today);
+
+        d.setDate(
+            today.getDate() - i
+        );
+
+        days.push(d);
+
+    }
+
+    return days;
+
+}
+
+
+function sameDay(a,b){
+
+    return(
+        a.getFullYear() === b.getFullYear() &&
+        a.getMonth() === b.getMonth() &&
+        a.getDate() === b.getDate()
+    );
+
+}
+
+
+/* STATS */
+
+function updateStats(){
+
+    const days = getDays();
+
+
+    const values =
+        days.map(
+            day => {
+
+                return expenses
+                .filter(
+                    e =>
+                    sameDay(
+                        new Date(e.date),
+                        day
+                    )
+                )
+                .reduce(
+                    (sum,e) =>
+                    sum + Number(e.amount),
+                    0
+                );
+
+            }
+        );
+
+
+    const weekTotal =
+        values.reduce(
+            (a,b) => a+b,
+            0
+        );
+
+
+    const weekExpenses =
+        expenses.filter(
+            e => {
+
+                const date =
+                    new Date(e.date);
+
+                const first =
+                    days[0];
+
+                return date >= first;
+
+            }
+        );
+
+
+    document
+    .getElementById("week")
+    .textContent =
+        money(weekTotal);
+
+
+    document
+    .getElementById("count")
+    .textContent =
+        weekExpenses.length;
+
+
+    document
+    .getElementById("average")
+    .textContent =
+        money(
+            weekExpenses.length
+            ? weekTotal / weekExpenses.length
+            : 0
+        );
+
+
+    drawChart(
+        days,
+        values
+    );
+
+
+    drawCategories();
+
+    createTip(
+        weekTotal
+    );
+
+}
+
+
+/* CHART */
+
+function drawChart(
+    days,
+    values
+){
+
+    const chart =
+        document
+        .getElementById("chart");
+
+    chart.innerHTML = "";
+
+
+    const max =
+        Math.max(
+            ...values,
+            1
+        );
+
+
+    days.forEach(
+        (day,index) => {
+
+            const column =
+                document.createElement("div");
+
+            column.className =
+                "bar-column";
+
+
+            const value =
+                document.createElement("div");
+
+            value.className =
+                "bar-value";
+
+            value.textContent =
+                values[index]
+                ? money(values[index])
+                : "";
+
+
+            const bar =
+                document.createElement("div");
+
+            bar.className =
+                "bar";
+
+
+            bar.style.height =
+                Math.max(
+                    3,
+                    values[index] / max * 190
+                ) + "px";
+
+
+            const label =
+                document.createElement("div");
+
+            label.className =
+                "bar-day";
+
+            label.textContent =
+                day.toLocaleDateString(
+                    "en-IN",
+                    {
+                        weekday:"short"
+                    }
+                );
+
+
+            column.appendChild(value);
+            column.appendChild(bar);
+            column.appendChild(label);
+
+            chart.appendChild(column);
+
+        }
+    );
+
+}
+
+
+/* CATEGORY BREAKDOWN */
+
+function drawCategories(){
+
+    const container =
+        document
+        .getElementById("categories");
+
+    container.innerHTML = "";
+
+
+    if(!expenses.length){
+
+        container.innerHTML =
+            `<div class="empty">
+                No category data yet.
+            </div>`;
+
+        return;
+
+    }
+
+
+    const totals = {};
+
+
+    expenses.forEach(
+        e => {
+
+            totals[e.category] =
+                (totals[e.category] || 0) +
+                Number(e.amount);
+
+        }
+    );
+
+
+    const max =
+        Math.max(
+            ...Object.values(totals),
+            1
+        );
+
+
+    Object.entries(totals)
+    .sort(
+        (a,b) => b[1]-a[1]
+    )
+    .forEach(
+        ([category,value]) => {
+
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "category-row";
+
+
+            const top =
+                document.createElement("div");
+
+            top.className =
+                "category-top";
+
+
+            const name =
+                document.createElement("span");
+
+            name.textContent =
+                categoryIcon(category) +
+                " " +
+                category;
+
+
+            const amount =
+                document.createElement("b");
+
+            amount.textContent =
+                money(value);
+
+
+            top.appendChild(name);
+            top.appendChild(amount);
+
+
+            const progress =
+                document.createElement("div");
+
+            progress.className =
+                "progress";
+
+
+            const span =
+                document.createElement("span");
+
+            span.style.width =
+                (value/max*100) + "%";
+
+
+            progress.appendChild(span);
+
+            row.appendChild(top);
+            row.appendChild(progress);
+
+            container.appendChild(row);
+
+        }
+    );
+
+}
+
+
+/* SMART TIP */
+
+function createTip(weekTotal){
+
+    const element =
+        document
+        .getElementById("tip");
+
+
+    if(!expenses.length){
+
+        element.textContent =
+            "Add some expenses and I'll analyse your spending.";
+
+        return;
+
+    }
+
+
+    if(income <= 0){
+
+        element.textContent =
+            "Set your monthly income so your spending can be compared with your available money.";
+
+        return;
+
+    }
+
+
+    const percentage =
+        weekTotal / income * 100;
+
+
+    if(currentBalance() < 0){
+
+        element.textContent =
+            "⚠️ Your expenses are higher than your income. Review your recent spending.";
+
+    }
+    else if(percentage >= 30){
+
+        element.textContent =
+            "Your spending this week is relatively high compared with your monthly income. Consider reviewing your biggest expense categories.";
+
+    }
+    else if(percentage >= 15){
+
+        element.textContent =
+            "Your spending looks moderate. Keep tracking it regularly so you stay in control.";
+
+    }
+    else{
+
+        element.textContent =
+            "Nice! Your recent spending is relatively low compared with your monthly income.";
+
+    }
+
+}
+
+
+/* NOTES */
+
+document
+.getElementById("notes")
+.value = notes;
+
+
+function saveNotes(){
+
+    notes =
+        document
+        .getElementById("notes")
+        .value;
+
+    saveData();
+
+    document
+    .getElementById("noteStatus")
+    .textContent =
+        "✓ Notes saved";
+
+}
+
+
+/* UPDATE EVERYTHING */
+
+function update(){
+
+    const spent =
+        totalSpent();
+
+    const balance =
+        currentBalance();
+
+
+    document
+    .getElementById("income")
+    .textContent =
+        money(income);
+
+
+    document
+    .getElementById("totalExpenses")
+    .textContent =
+        money(spent);
+
+
+    document
+    .getElementById("balance")
+    .textContent =
+        money(balance);
+
+
+    const status =
+        document
+        .getElementById("balanceStatus");
+
+
+    if(balance < 0){
+
+        status.textContent =
+            "⚠️ You have spent more than your income.";
+
+    }
+    else if(balance === 0){
+
+        status.textContent =
+            "Your available balance is ₹0.";
+
+    }
+    else{
+
+        status.textContent =
+            "● Available after expenses";
+
+    }
+
+
+    renderExpenses();
+
+    updateStats();
+
+}
+
+</script>
+
+</body>
+</html>
