@@ -2,323 +2,429 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Finance Manager Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance Manager</title>
 
-<!-- OCR -->
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@7/dist/tesseract.min.js"></script>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
 body{
-    font-family:Arial,sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
     background:#070914;
     color:white;
-    min-height:100vh
+    min-height:100vh;
 }
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
 
-#lock{
+button,input,select,textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* ================= PASSWORD ================= */
+
+#lockScreen{
     position:fixed;
     inset:0;
-    z-index:99;
+    z-index:999;
     display:flex;
     justify-content:center;
     align-items:center;
     padding:20px;
-    background:radial-gradient(circle at top,#40358a,#070914 70%)
+    background:
+    radial-gradient(circle at top,#5142a5,#070914 65%);
 }
-.lock-card{
-    width:420px;
+
+.lockBox{
+    width:430px;
     max-width:100%;
     padding:40px 30px;
     text-align:center;
-    border:1px solid #414864;
+    border:1px solid #3b4260;
     border-radius:30px;
     background:#111526;
-    box-shadow:0 30px 100px #000
+    box-shadow:0 30px 100px #000;
 }
-.lock-logo{
+
+.lockIcon{
     width:80px;
     height:80px;
     margin:auto;
     display:grid;
     place-items:center;
-    border-radius:25px;
+    border-radius:24px;
     font-size:38px;
-    background:linear-gradient(135deg,#8c7bff,#4da9ff)
+    background:linear-gradient(135deg,#806fff,#48a9ff);
 }
-.lock-card h1{
+
+.lockBox h1{
     margin-top:20px;
-    font-size:40px
+    font-size:36px;
 }
-.lock-card h1 span{color:#8170ff}
-.lock-card p{
-    margin:12px 0;
-    color:#858da5
+
+.lockBox h1 span{
+    color:#8070ff;
 }
-#password{
+
+.lockBox p{
+    margin:12px 0 20px;
+    color:#858da5;
+}
+
+#passwordInput{
     width:100%;
-    height:54px;
+    height:55px;
     padding:0 15px;
     border:1px solid #343b53;
     border-radius:14px;
     outline:none;
     color:white;
     background:#080b15;
-    text-align:center
+    text-align:center;
 }
-.primary{
-    border:0;
-    color:white;
-    background:linear-gradient(110deg,#7665ff,#4b9fff)
-}
-#unlock{
+
+.unlockButton{
     width:100%;
-    height:54px;
+    height:55px;
     margin-top:10px;
+    border:0;
     border-radius:14px;
-    font-weight:bold
+    color:white;
+    font-weight:bold;
+    background:linear-gradient(110deg,#7665ff,#4b9fff);
 }
-#error{color:#ff7180!important}
+
+#passwordError{
+    color:#ff7180;
+    min-height:18px;
+}
+
+/* ================= APP ================= */
 
 #app{
     max-width:1150px;
     margin:auto;
-    padding:25px 18px 70px
+    padding:25px 18px 70px;
 }
 
+/* ================= HEADER ================= */
+
 .header{
-    min-height:250px;
+    min-height:260px;
     display:flex;
     align-items:center;
-    justify-content:space-between
+    justify-content:space-between;
 }
+
 .eyebrow{
     color:#858da8;
     font-size:11px;
     font-weight:bold;
-    letter-spacing:3px
+    letter-spacing:3px;
 }
+
 .header h1{
     margin-top:12px;
     font-size:clamp(50px,8vw,82px);
     line-height:.9;
-    letter-spacing:-5px
+    letter-spacing:-5px;
 }
-.header h1 span{color:#8170ff}
+
+.header h1 span{
+    color:#8170ff;
+}
+
 .subtitle{
     margin-top:20px;
     color:#858da5;
-    font-size:17px
+    font-size:17px;
 }
 
+/* ================= ROBOT ================= */
+
 .robot{
-    width:210px;
-    height:220px;
+    width:220px;
+    height:230px;
     position:relative;
-    animation:float 3s ease-in-out infinite
+    animation:float 3s ease-in-out infinite;
 }
-@keyframes float{50%{transform:translateY(-10px)}}
-.head{
+
+@keyframes float{
+    50%{
+        transform:translateY(-10px);
+    }
+}
+
+.robotHead{
     position:absolute;
     top:10px;
-    left:42px;
-    width:125px;
-    height:100px;
+    left:45px;
+    width:130px;
+    height:105px;
     border-radius:30px;
     background:linear-gradient(135deg,#897aff,#5141bd);
-    box-shadow:0 15px 35px #4f45bd55
+    box-shadow:0 15px 35px #4f45bd55;
 }
-.head:before{
+
+.robotHead:before{
     content:"";
     position:absolute;
     width:4px;
     height:28px;
     top:-28px;
-    left:60px;
-    background:#8170ff
+    left:63px;
+    background:#8170ff;
 }
-.head:after{
+
+.robotHead:after{
     content:"";
     position:absolute;
     width:11px;
     height:11px;
-    top:-35px;
-    left:57px;
+    top:-36px;
+    left:60px;
     border-radius:50%;
     background:#6bd1ff;
-    box-shadow:0 0 18px #6bd1ff
+    box-shadow:0 0 18px #6bd1ff;
 }
+
 .eye{
     position:absolute;
-    top:33px;
-    width:14px;
-    height:19px;
+    top:35px;
+    width:15px;
+    height:20px;
     border-radius:50%;
     background:#c4f3ff;
-    box-shadow:0 0 12px #6bd1ff
+    box-shadow:0 0 12px #6bd1ff;
 }
-.eye.one{left:34px}
-.eye.two{right:34px}
-.mouth{
+
+.eye1{
+    left:35px;
+}
+
+.eye2{
+    right:35px;
+}
+
+.robotMouth{
     position:absolute;
     bottom:18px;
-    left:47px;
+    left:49px;
     width:32px;
     height:7px;
     border-radius:20px;
-    background:#c5bdff
+    background:#c5bdff;
 }
-.body{
+
+.robotBody{
     position:absolute;
-    top:125px;
-    left:62px;
-    width:85px;
-    height:70px;
+    top:130px;
+    left:65px;
+    width:90px;
+    height:75px;
     display:grid;
     place-items:center;
     border-radius:23px;
     border:1px solid #424a67;
     background:#151a2b;
-    font-size:28px
+    font-size:28px;
 }
+
 .arm{
     position:absolute;
-    top:130px;
+    top:135px;
     width:15px;
-    height:58px;
+    height:60px;
     border-radius:20px;
-    background:#6269bd
+    background:#6269bd;
 }
-.arm.left{left:37px;transform:rotate(25deg)}
-.arm.right{right:37px;transform:rotate(-25deg)}
 
-.balance{
+.arm1{
+    left:38px;
+    transform:rotate(25deg);
+}
+
+.arm2{
+    right:38px;
+    transform:rotate(-25deg);
+}
+
+/* ================= BALANCE ================= */
+
+.balanceCard{
     padding:30px;
     border-radius:30px;
     background:linear-gradient(115deg,#5546d9,#7868ff,#479dff);
-    box-shadow:0 25px 70px #5b50dc33
+    box-shadow:0 25px 70px #5b50dc33;
 }
-.balance-top{
+
+.balanceTop{
     display:flex;
-    justify-content:space-between
+    justify-content:space-between;
 }
-.balance-icon{
+
+.balanceIcon{
     width:52px;
     height:52px;
     display:grid;
     place-items:center;
     border-radius:16px;
     background:#ffffff20;
-    font-size:25px
+    font-size:25px;
 }
-.balance h2{
-    margin-top:25px;
-    font-size:clamp(45px,7vw,70px)
-}
-.balance small{color:#ffffffaa}
 
-.two{
+.balanceCard h2{
+    margin-top:25px;
+    font-size:clamp(45px,7vw,70px);
+}
+
+.balanceCard small{
+    color:#ffffffaa;
+}
+
+/* ================= INFO ================= */
+
+.infoGrid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:15px;
-    margin-top:15px
+    margin-top:15px;
 }
-.info-card{
+
+.infoCard{
     padding:22px;
     display:flex;
     align-items:center;
     gap:15px;
     border:1px solid #2c3249;
     border-radius:23px;
-    background:#111526
+    background:#111526;
 }
-.icon{
+
+.infoIcon{
     width:55px;
     height:55px;
     display:grid;
     place-items:center;
     border-radius:17px;
     background:#24213f;
-    font-size:24px
+    font-size:24px;
 }
-.info-card .grow{flex:1}
-.info-card p{
+
+.infoGrow{
+    flex:1;
+}
+
+.infoGrow p{
     color:#777f96;
     font-size:10px;
     font-weight:bold;
-    letter-spacing:2px
+    letter-spacing:2px;
 }
-.info-card h3{
+
+.infoGrow h3{
     margin-top:6px;
-    font-size:24px
+    font-size:24px;
 }
-.small-btn{
+
+.smallButton{
     padding:11px 15px;
     border:0;
     border-radius:12px;
     color:#aaa0ff;
     background:#292f45;
-    font-weight:bold
+    font-weight:bold;
 }
+
+/* ================= NAV ================= */
 
 .nav{
     display:flex;
     gap:10px;
     margin:28px 0;
-    overflow:auto
+    overflow:auto;
 }
+
 .nav button{
     white-space:nowrap;
     padding:13px 19px;
     border:1px solid #30364d;
     border-radius:14px;
     color:#9199af;
-    background:#111526
+    background:#111526;
 }
+
 .nav button.active{
     color:white;
     border-color:transparent;
-    background:linear-gradient(110deg,#7665ff,#4b9fff)
+    background:linear-gradient(110deg,#7665ff,#4b9fff);
 }
 
-.page{display:none}
-.page.active{display:block}
+/* ================= PAGES ================= */
 
-.page-head{
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.pageHead{
     display:flex;
     align-items:end;
     justify-content:space-between;
-    gap:15px
+    gap:15px;
 }
-.page-head h2{
+
+.pageHead h2{
     margin-top:7px;
-    font-size:38px
+    font-size:38px;
 }
-.page-head p{
+
+.pageHead p{
     margin-top:7px;
-    color:#858da5
+    color:#858da5;
 }
-.add{
+
+.addButton{
     padding:15px 20px;
     border:0;
     border-radius:14px;
-    font-weight:bold
+    font-weight:bold;
+    color:white;
+    background:linear-gradient(110deg,#7665ff,#4b9fff);
 }
 
-.form{
+/* ================= FORMS ================= */
+
+.formBox{
     display:none;
     margin-top:18px;
     padding:22px;
     border:1px solid #30364d;
     border-radius:23px;
-    background:#111526
+    background:#111526;
 }
-.form.show{display:block}
-.form input,.form select{
+
+.formBox.show{
+    display:block;
+}
+
+.formBox input,
+.formBox select{
     width:100%;
     height:52px;
     margin-top:10px;
@@ -327,93 +433,124 @@ button{cursor:pointer}
     border-radius:13px;
     outline:none;
     color:white;
-    background:#080b15
+    background:#080b15;
 }
-.form-actions{
+
+.formActions{
     display:flex;
     gap:10px;
-    margin-top:12px
+    margin-top:12px;
 }
-.form-actions button{
+
+.formActions button{
     flex:1;
     height:48px;
     border:0;
     border-radius:12px;
-    font-weight:bold
+    font-weight:bold;
 }
-.cancel{
+
+.cancelButton{
     color:#aaa;
-    background:#292f43
+    background:#292f43;
 }
-.form-error{
+
+.formError{
     margin-top:8px;
     color:#ff7180;
-    font-size:12px
+    font-size:12px;
 }
 
-.scan-area{
-    margin-top:15px;
-    padding:22px;
+/* ================= SCANNER ================= */
+
+.scanner{
+    margin-top:18px;
+    padding:23px;
     border:1px solid #3d396b;
-    border-radius:22px;
-    background:linear-gradient(135deg,#16172e,#101426)
+    border-radius:23px;
+    background:linear-gradient(135deg,#16172e,#101426);
 }
-.scan-title{
-    font-size:20px;
-    font-weight:bold
-}
-.scan-area p{
-    margin-top:7px;
-    color:#858da5;
-    line-height:1.5
-}
-.scan-btn{
-    margin-top:15px;
-    padding:14px 18px;
-    border:0;
-    border-radius:13px;
-    font-weight:bold;
-    color:white;
-    background:linear-gradient(110deg,#765eff,#43a8ff)
-}
-#receiptInput{display:none}
 
-.scan-status{
+.scannerTitle{
+    margin-top:7px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.scannerText{
+    margin-top:8px;
+    color:#858da5;
+    line-height:1.5;
+}
+
+.scanButton{
+    margin-top:16px;
+    padding:15px 20px;
+    border:0;
+    border-radius:14px;
+    color:white;
+    font-weight:bold;
+    background:linear-gradient(110deg,#765eff,#43a8ff);
+}
+
+#receiptInput{
+    display:none;
+}
+
+.scanStatus{
     margin-top:12px;
     color:#8e96ad;
-    font-size:13px
+    font-size:13px;
 }
 
-.preview{
+.scanPreview{
     display:none;
-    margin-top:15px;
+    margin-top:18px;
     padding:18px;
     border:1px solid #30364d;
     border-radius:20px;
-    background:#111526
+    background:#111526;
 }
-.preview.show{display:block}
-.preview img{
+
+.scanPreview.show{
+    display:block;
+}
+
+#receiptImage{
     width:100%;
-    max-height:220px;
+    max-height:250px;
     object-fit:contain;
-    border-radius:13px;
-    background:#05070d
+    border-radius:14px;
+    background:#05070d;
 }
-.preview h3{margin-top:15px}
-.ocr-text{
-    max-height:100px;
+
+.ocrText{
+    max-height:120px;
     overflow:auto;
-    margin-top:8px;
-    padding:10px;
-    border-radius:10px;
+    margin-top:10px;
+    padding:12px;
+    border-radius:12px;
     color:#8e96ad;
     background:#080b15;
     font-size:11px;
-    white-space:pre-wrap
+    white-space:pre-wrap;
 }
 
-.expense-card{
+.scanField{
+    width:100%;
+    height:50px;
+    margin-top:10px;
+    padding:0 13px;
+    border:1px solid #30364d;
+    border-radius:12px;
+    outline:none;
+    color:white;
+    background:#080b15;
+}
+
+/* ================= EXPENSE CARDS ================= */
+
+.expenseCard{
     display:flex;
     align-items:center;
     gap:14px;
@@ -421,60 +558,78 @@ button{cursor:pointer}
     padding:17px;
     border:1px solid #292f42;
     border-radius:21px;
-    background:#111526
+    background:#111526;
 }
-.expense-icon{
+
+.expenseIcon{
     width:53px;
     height:53px;
     display:grid;
     place-items:center;
     border-radius:16px;
     background:#24213f;
-    font-size:23px
+    font-size:23px;
 }
-.expense-info{flex:1}
-.expense-info h3{font-size:17px}
-.expense-info p{
+
+.expenseInfo{
+    flex:1;
+}
+
+.expenseInfo h3{
+    font-size:17px;
+}
+
+.expenseInfo p{
     margin-top:5px;
     color:#727b93;
-    font-size:11px
+    font-size:11px;
 }
-.expense-amount{
+
+.expenseAmount{
     color:#ff7080;
-    font-weight:bold
+    font-weight:bold;
 }
-.delete{
+
+.deleteButton{
     width:36px;
     height:36px;
     border:0;
     border-radius:10px;
     background:#302033;
     color:#ff7080;
-    font-size:20px
+    font-size:20px;
 }
+
 .empty{
     margin-top:15px;
     padding:45px 20px;
     border:1px dashed #30374d;
     border-radius:22px;
     text-align:center;
-    color:#777f95
+    color:#777f95;
 }
+
 .empty strong{
     display:block;
     margin:8px 0;
-    color:white
+    color:white;
 }
+
+/* ================= NOTES ================= */
 
 .notes{
     margin-top:20px;
     padding:23px;
     border:1px solid #292f43;
     border-radius:23px;
-    background:#111526
+    background:#111526;
 }
-.notes h2{margin-top:7px}
-textarea{
+
+.notes h2{
+    margin-top:7px;
+}
+
+#notesArea{
     width:100%;
     min-height:140px;
     margin-top:15px;
@@ -484,48 +639,57 @@ textarea{
     border-radius:14px;
     outline:none;
     color:white;
-    background:#080b15
+    background:#080b15;
 }
-.note-bottom{
+
+.noteBottom{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-top:10px
-}
-.note-bottom span{
-    color:#727b93;
-    font-size:12px
+    margin-top:10px;
 }
 
-.stat-grid{
+.noteBottom span{
+    color:#727b93;
+    font-size:12px;
+}
+
+/* ================= STATS ================= */
+
+.statGrid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:15px;
-    margin-top:20px
+    margin-top:20px;
 }
-.stat{
+
+.statCard{
     padding:22px;
     border:1px solid #292f42;
     border-radius:22px;
-    background:#111526
+    background:#111526;
 }
-.stat p{
+
+.statCard p{
     color:#777f95;
     font-size:10px;
     font-weight:bold;
-    letter-spacing:2px
+    letter-spacing:2px;
 }
-.stat h3{
+
+.statCard h3{
     margin-top:8px;
-    font-size:27px
+    font-size:27px;
 }
-.chart-card{
+
+.chartCard{
     margin-top:18px;
     padding:24px;
     border:1px solid #292f42;
     border-radius:24px;
-    background:#111526
+    background:#111526;
 }
+
 .chart{
     height:280px;
     margin-top:20px;
@@ -533,1304 +697,2420 @@ textarea{
     align-items:end;
     justify-content:space-around;
     gap:8px;
-    border-bottom:1px solid #30374d
+    border-bottom:1px solid #30374d;
 }
-.bar-column{
+
+.barColumn{
     height:100%;
     flex:1;
     display:flex;
     flex-direction:column;
     justify-content:end;
-    align-items:center
+    align-items:center;
 }
-.bar-value{
+
+.barValue{
     min-height:15px;
     color:#8c94aa;
-    font-size:9px
+    font-size:9px;
 }
+
 .bar{
     width:35px;
     max-width:80%;
     min-height:3px;
     border-radius:9px 9px 3px 3px;
-    background:linear-gradient(to top,#6251e8,#63c0ff)
+    background:linear-gradient(to top,#6251e8,#63c0ff);
 }
-.bar-day{
+
+.barDay{
     margin:7px 0;
     color:#737c93;
-    font-size:10px
+    font-size:10px;
 }
+
 .tip{
     margin-top:18px;
     padding:23px;
     border:1px solid #3c3765;
     border-radius:22px;
-    background:#17172c
+    background:#17172c;
 }
+
 .tip h3{
     margin-top:8px;
     line-height:1.5;
-    color:#d8d5ff
+    color:#d8d5ff;
 }
-.category-list{margin-top:15px}
-.category-row{
+
+.categoryList{
+    margin-top:15px;
+}
+
+.categoryRow{
     margin-top:10px;
     padding:15px;
     border-radius:15px;
     background:#111526;
-    border:1px solid #292f42
+    border:1px solid #292f42;
 }
-.category-top{
+
+.categoryTop{
     display:flex;
     justify-content:space-between;
-    margin-bottom:8px
+    margin-bottom:8px;
 }
+
 .progress{
     height:7px;
     overflow:hidden;
     border-radius:10px;
-    background:#252b3e
+    background:#252b3e;
 }
+
 .progress span{
     display:block;
     height:100%;
     border-radius:10px;
-    background:linear-gradient(90deg,#7665ff,#55baff)
+    background:linear-gradient(90deg,#7665ff,#55baff);
 }
 
+/* ================= MOBILE ================= */
+
 @media(max-width:700px){
-    #app{padding:22px 14px 60px}
-    .header{min-height:210px}
-    .robot{display:none}
-    .header h1{font-size:53px}
-    .two,.stat-grid{grid-template-columns:1fr}
-    .page-head{
-        align-items:stretch;
-        flex-direction:column
+
+    #app{
+        padding:22px 14px 60px;
     }
-    .add{width:100%}
-    .expense-card{padding:13px}
+
+    .header{
+        min-height:210px;
+    }
+
+    .robot{
+        display:none;
+    }
+
+    .header h1{
+        font-size:53px;
+    }
+
+    .infoGrid,
+    .statGrid{
+        grid-template-columns:1fr;
+    }
+
+    .pageHead{
+        align-items:stretch;
+        flex-direction:column;
+    }
+
+    .addButton{
+        width:100%;
+    }
+
+    .expenseCard{
+        padding:13px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- PASSWORD -->
+<!-- ================= LOCK SCREEN ================= -->
 
-<div id="lock">
-<div class="lock-card">
-<div class="lock-logo">🔐</div>
-<h1>FINANCE <span>MANAGER</span></h1>
-<p>Your money. Your control.</p>
-<input id="password" type="password" placeholder="Enter password">
-<button id="unlock" class="primary">UNLOCK →</button>
-<p id="error"></p>
-</div>
+<div id="lockScreen">
+
+    <div class="lockBox">
+
+        <div class="lockIcon">🔐</div>
+
+        <h1>
+            FINANCE <span>MANAGER</span>
+        </h1>
+
+        <p>
+            Your money. Your control.
+        </p>
+
+        <input
+            id="passwordInput"
+            type="password"
+            placeholder="Enter password"
+        >
+
+        <button
+            class="unlockButton"
+            onclick="unlockApp()"
+        >
+            UNLOCK →
+        </button>
+
+        <p id="passwordError"></p>
+
+    </div>
+
 </div>
 
+
+<!-- ================= MAIN APP ================= -->
 
 <div id="app">
 
-<!-- HEADER -->
+    <!-- HEADER -->
 
-<section class="header">
-<div>
-<div class="eyebrow">SMART MONEY CONTROL</div>
-<h1>FINANCE <span>MANAGER</span></h1>
-<div class="subtitle">Take control of your money.</div>
-</div>
+    <section class="header">
 
-<div class="robot">
-<div class="head">
-<div class="eye one"></div>
-<div class="eye two"></div>
-<div class="mouth"></div>
-</div>
-<div class="body">₹</div>
-<div class="arm left"></div>
-<div class="arm right"></div>
-</div>
-</section>
+        <div>
 
+            <div class="eyebrow">
+                SMART MONEY CONTROL
+            </div>
 
-<!-- BALANCE -->
+            <h1>
+                FINANCE <span>MANAGER</span>
+            </h1>
 
-<section class="balance">
-<div class="balance-top">
-<div>
-<div class="eyebrow" style="color:#ffffffaa">TOTAL BALANCE</div>
-<small>● Available money</small>
-</div>
-<div class="balance-icon">₹</div>
-</div>
-<h2 id="balance">₹0</h2>
-<small id="balanceStatus">Set your income to begin.</small>
-</section>
+            <div class="subtitle">
+                Take control of your money.
+            </div>
 
+        </div>
 
-<section class="two">
 
-<div class="info-card">
-<div class="icon">💼</div>
-<div class="grow">
-<p>MONTHLY INCOME</p>
-<h3 id="income">₹0</h3>
-</div>
-<button class="small-btn" onclick="setIncome()">EDIT</button>
-</div>
+        <div class="robot">
 
-<div class="info-card">
-<div class="icon">💸</div>
-<div class="grow">
-<p>TOTAL EXPENSES</p>
-<h3 id="totalExpenses">₹0</h3>
-</div>
-</div>
+            <div class="robotHead">
 
-</section>
+                <div class="eye eye1"></div>
 
+                <div class="eye eye2"></div>
 
-<nav class="nav">
+                <div class="robotMouth"></div>
 
-<button class="active" onclick="go('home',this)">🏠 Home</button>
+            </div>
 
-<button onclick="go('expenses',this)">💸 Expenses</button>
+            <div class="robotBody">
+                ₹
+            </div>
 
-<button onclick="go('stats',this)">📊 Stats</button>
+            <div class="arm arm1"></div>
 
-</nav>
+            <div class="arm arm2"></div>
 
+        </div>
 
-<!-- HOME -->
+    </section>
 
-<section id="home" class="page active">
 
-<div class="page-head">
+    <!-- BALANCE -->
 
-<div>
-<div class="eyebrow">MONEY TRACKER</div>
-<h2>Recent Expenses</h2>
-<p>Your latest transactions.</p>
-</div>
+    <section class="balanceCard">
 
-<button class="add primary" onclick="openExpense()">
-+ ADD EXPENSE
-</button>
+        <div class="balanceTop">
 
-</div>
+            <div>
 
-<div id="recent"></div>
+                <div
+                    class="eyebrow"
+                    style="color:#ffffffaa"
+                >
+                    TOTAL BALANCE
+                </div>
 
-<div class="notes">
+                <small>
+                    ● Available money
+                </small>
 
-<div class="eyebrow">QUICK NOTES</div>
-<h2>Money Notes</h2>
+            </div>
 
-<textarea id="notes"
-placeholder="Write something about your money..."></textarea>
+            <div class="balanceIcon">
+                ₹
+            </div>
 
-<div class="note-bottom">
-<span id="noteStatus">Not saved</span>
-<button class="small-btn" onclick="saveNotes()">SAVE NOTES</button>
-</div>
+        </div>
 
-</div>
+        <h2 id="balanceAmount">
+            ₹0
+        </h2>
 
-</section>
+        <small id="balanceMessage">
+            Set your income to begin.
+        </small>
 
+    </section>
 
-<!-- EXPENSES -->
 
-<section id="expenses" class="page">
+    <!-- INCOME / EXPENSE -->
 
-<div class="page-head">
+    <section class="infoGrid">
 
-<div>
-<div class="eyebrow">MONEY TRACKER</div>
-<h2>Expenses</h2>
-<p>Track every rupee automatically.</p>
-</div>
+        <div class="infoCard">
 
-<button class="add primary" onclick="openExpense()">
-+ ADD EXPENSE
-</button>
+            <div class="infoIcon">
+                💼
+            </div>
 
-</div>
+            <div class="infoGrow">
 
+                <p>
+                    MONTHLY INCOME
+                </p>
 
-<!-- SCANNER -->
+                <h3 id="incomeAmount">
+                    ₹0
+                </h3>
 
-<div class="scan-area">
+            </div>
 
-<div class="eyebrow">AI RECEIPT SCANNER</div>
+            <button
+                class="smallButton"
+                onclick="editIncome()"
+            >
+                EDIT
+            </button>
 
-<div class="scan-title">
-📷 Scan a receipt
-</div>
+        </div>
 
-<p>
-Take a picture of your receipt and the app will try to read the
-text and find the total amount automatically.
-</p>
 
-  <input
-id="receiptInput"
-type="file"
-accept="image/*"
->  
+        <div class="infoCard">
 
-<button
-class="scan-btn"
-onclick="document.getElementById('receiptInput').click()"
->
-📷 SCAN RECEIPT
-</button>
+            <div class="infoIcon">
+                💸
+            </div>
 
-<div id="scanStatus" class="scan-status">
-Ready to scan.
-</div>
+            <div class="infoGrow">
 
-<div id="preview" class="preview">
+                <p>
+                    TOTAL EXPENSES
+                </p>
 
-<img id="receiptImage">
+                <h3 id="expenseTotal">
+                    ₹0
+                </h3>
 
-<h3>Detected receipt</h3>
+            </div>
 
-<div id="ocrText" class="ocr-text"></div>
+        </div>
 
-<div style="margin-top:15px">
+    </section>
 
-<input
-id="scanTitle"
-style="width:100%;height:50px;padding:0 13px;border:1px solid #30364d;border-radius:12px;background:#080b15;color:white"
-placeholder="Expense title"
->
 
-<input
-id="scanAmount"
-type="number"
-style="width:100%;height:50px;margin-top:10px;padding:0 13px;border:1px solid #30364d;border-radius:12px;background:#080b15;color:white"
-placeholder="Detected amount"
->
+    <!-- NAVIGATION -->
 
-<select
-id="scanCategory"
-style="width:100%;height:50px;margin-top:10px;padding:0 13px;border:1px solid #30364d;border-radius:12px;background:#080b15;color:white"
->
+    <nav class="nav">
 
-<option>Food</option>
-<option>Shopping</option>
-<option>Travel</option>
-<option>Education</option>
-<option>Sports</option>
-<option>Entertainment</option>
-<option>Bills</option>
-<option>Other</option>
+        <button
+            class="active"
+            onclick="showPage('home',this)"
+        >
+            🏠 Home
+        </button>
 
-</select>
+        <button
+            onclick="showPage('expenses',this)"
+        >
+            💸 Expenses
+        </button>
 
-<button
-class="scan-btn"
-style="width:100%"
-onclick="saveScannedExpense()"
->
-✓ ADD SCANNED EXPENSE
-</button>
+        <button
+            onclick="showPage('stats',this)"
+        >
+            📊 Stats
+        </button>
 
-</div>
+    </nav>
 
-</div>
 
-</div>
+    <!-- ================= HOME ================= -->
 
+    <section
+        id="home"
+        class="page active"
+    >
 
-<!-- MANUAL FORM -->
+        <div class="pageHead">
 
-<div id="expenseForm" class="form">
+            <div>
 
-<div class="eyebrow">NEW TRANSACTION</div>
+                <div class="eyebrow">
+                    MONEY TRACKER
+                </div>
 
-<h3 style="margin-top:7px">Add an expense</h3>
+                <h2>
+                    Recent Expenses
+                </h2>
 
-<input id="title" placeholder="Expense title">
+                <p>
+                    Your latest transactions.
+                </p>
 
-<input id="amount" type="number" min="1" placeholder="Amount spent">
+            </div>
 
-<select id="category">
-<option value="Food">🍔 Food</option>
-<option value="Shopping">🛍️ Shopping</option>
-<option value="Travel">🚗 Travel</option>
-<option value="Education">📚 Education</option>
-<option value="Sports">⚽ Sports</option>
-<option value="Entertainment">🎮 Entertainment</option>
-<option value="Bills">📄 Bills</option>
-<option value="Other">💰 Other</option>
-</select>
+            <button
+                class="addButton"
+                onclick="openExpenseForm()"
+            >
+                + ADD EXPENSE
+            </button>
 
-<div class="form-actions">
+        </div>
 
-<button class="cancel" onclick="closeExpense()">CANCEL</button>
 
-<button class="primary" onclick="saveExpense()">
-SAVE EXPENSE
-</button>
+        <div id="recentExpenses"></div>
 
-</div>
 
-<div id="formError" class="form-error"></div>
+        <!-- NOTES -->
 
-</div>
+        <div class="notes">
 
-<div id="allExpenses"></div>
+            <div class="eyebrow">
+                QUICK NOTES
+            </div>
 
-</section>
+            <h2>
+                Money Notes
+            </h2>
 
+            <textarea
+                id="notesArea"
+                placeholder="Write something about your money..."
+            ></textarea>
 
-<!-- STATS -->
+            <div class="noteBottom">
 
-<section id="stats" class="page">
+                <span id="noteStatus">
+                    Not saved
+                </span>
 
-<div class="eyebrow">ANALYTICS</div>
+                <button
+                    class="smallButton"
+                    onclick="saveNotes()"
+                >
+                    SAVE NOTES
+                </button>
 
-<h2 style="font-size:40px;margin-top:7px">
-Weekly Stats
-</h2>
+            </div>
 
-<p style="color:#858da5;margin-top:7px">
-Understand your spending habits.
-</p>
+        </div>
 
-<div class="stat-grid">
+    </section>
 
-<div class="stat">
-<p>THIS WEEK</p>
-<h3 id="week">₹0</h3>
-</div>
 
-<div class="stat">
-<p>TRANSACTIONS</p>
-<h3 id="count">0</h3>
-</div>
+    <!-- ================= EXPENSES ================= -->
 
-<div class="stat">
-<p>AVERAGE</p>
-<h3 id="average">₹0</h3>
-</div>
+    <section
+        id="expenses"
+        class="page"
+    >
 
-</div>
+        <div class="pageHead">
 
+            <div>
 
-<div class="chart-card">
+                <div class="eyebrow">
+                    MONEY TRACKER
+                </div>
 
-<div class="eyebrow">SPENDING</div>
+                <h2>
+                    Expenses
+                </h2>
 
-<h3 style="margin-top:7px;font-size:23px">
-Last 7 Days
-</h3>
+                <p>
+                    Track every expense.
+                </p>
 
-<div id="chart" class="chart"></div>
+            </div>
 
-</div>
+            <button
+                class="addButton"
+                onclick="openExpenseForm()"
+            >
+                + ADD EXPENSE
+            </button>
 
+        </div>
 
-<div class="tip">
 
-<div class="eyebrow">💡 SMART TIP</div>
+        <!-- MANUAL EXPENSE -->
 
-<h3 id="tip">
-Add expenses to receive spending tips.
-</h3>
+        <div
+            id="expenseForm"
+            class="formBox"
+        >
 
-</div>
+            <div class="eyebrow">
+                NEW TRANSACTION
+            </div>
 
+            <h3 style="margin-top:7px">
+                Add an expense
+            </h3>
 
-<div style="margin-top:20px">
 
-<div class="eyebrow">CATEGORY BREAKDOWN</div>
+            <input
+                id="expenseTitle"
+                placeholder="Expense title"
+            >
 
-<h3 style="margin-top:7px;font-size:24px">
-Where your money goes
-</h3>
 
-<div id="categories" class="category-list"></div>
+            <input
+                id="expenseAmount"
+                type="number"
+                min="1"
+                placeholder="Amount spent"
+            >
 
-</div>
 
-</section>
+            <select id="expenseCategory">
+
+                <option value="Food">
+                    🍔 Food
+                </option>
+
+                <option value="Shopping">
+                    🛍️ Shopping
+                </option>
+
+                <option value="Travel">
+                    🚗 Travel
+                </option>
+
+                <option value="Education">
+                    📚 Education
+                </option>
+
+                <option value="Sports">
+                    ⚽ Sports
+                </option>
+
+                <option value="Entertainment">
+                    🎮 Entertainment
+                </option>
+
+                <option value="Bills">
+                    📄 Bills
+                </option>
+
+                <option value="Other">
+                    💰 Other
+                </option>
+
+            </select>
+
+
+            <div class="formActions">
+
+                <button
+                    class="cancelButton"
+                    onclick="closeExpenseForm()"
+                >
+                    CANCEL
+                </button>
+
+                <button
+                    class="unlockButton"
+                    onclick="saveManualExpense()"
+                >
+                    SAVE EXPENSE
+                </button>
+
+            </div>
+
+
+            <div
+                id="formError"
+                class="formError"
+            ></div>
+
+        </div>
+
+
+        <!-- ================= RECEIPT SCANNER ================= -->
+
+        <div class="scanner">
+
+            <div class="eyebrow">
+                RECEIPT SCANNER
+            </div>
+
+            <div class="scannerTitle">
+                📷 Scan a Receipt
+            </div>
+
+            <div class="scannerText">
+
+                Choose a receipt photo from your iPad,
+                or use the camera option provided by iPadOS.
+                The app will try to read the amount automatically.
+
+            </div>
+
+
+            <!-- IMPORTANT:
+                 NO capture="environment".
+                 This prevents the black-camera problem.
+            -->
+
+            <input
+                id="receiptInput"
+                type="file"
+                accept="image/*"
+            >
+
+
+            <button
+                class="scanButton"
+                onclick="chooseReceipt()"
+            >
+                📷 CHOOSE / TAKE RECEIPT PHOTO
+            </button>
+
+
+            <div
+                id="scanStatus"
+                class="scanStatus"
+            >
+                Ready to scan.
+            </div>
+
+
+            <!-- SCAN PREVIEW -->
+
+            <div
+                id="scanPreview"
+                class="scanPreview"
+            >
+
+                <img
+                    id="receiptImage"
+                    alt="Receipt"
+                >
+
+
+                <h3 style="margin-top:15px">
+                    Receipt detected
+                </h3>
+
+
+                <div
+                    id="ocrText"
+                    class="ocrText"
+                >
+                    Reading...
+                </div>
+
+
+                <input
+                    id="scannedTitle"
+                    class="scanField"
+                    placeholder="Expense title"
+                >
+
+
+                <input
+                    id="scannedAmount"
+                    class="scanField"
+                    type="number"
+                    placeholder="Detected amount"
+                >
+
+
+                <select
+                    id="scannedCategory"
+                    class="scanField"
+                >
+
+                    <option value="Food">
+                        🍔 Food
+                    </option>
+
+                    <option value="Shopping">
+                        🛍️ Shopping
+                    </option>
+
+                    <option value="Travel">
+                        🚗 Travel
+                    </option>
+
+                    <option value="Education">
+                        📚 Education
+                    </option>
+
+                    <option value="Sports">
+                        ⚽ Sports
+                    </option>
+
+                    <option value="Entertainment">
+                        🎮 Entertainment
+                    </option>
+
+                    <option value="Bills">
+                        📄 Bills
+                    </option>
+
+                    <option value="Other">
+                        💰 Other
+                    </option>
+
+                </select>
+
+
+                <button
+                    class="scanButton"
+                    style="width:100%"
+                    onclick="saveScannedExpense()"
+                >
+                    ✓ ADD SCANNED EXPENSE
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div id="allExpenses"></div>
+
+    </section>
+
+
+    <!-- ================= STATS ================= -->
+
+    <section
+        id="stats"
+        class="page"
+    >
+
+        <div class="eyebrow">
+            ANALYTICS
+        </div>
+
+        <h2
+            style="
+            font-size:40px;
+            margin-top:7px;
+            "
+        >
+            Weekly Stats
+        </h2>
+
+        <p
+            style="
+            color:#858da5;
+            margin-top:7px;
+            "
+        >
+            Understand your spending habits.
+        </p>
+
+
+        <div class="statGrid">
+
+            <div class="statCard">
+
+                <p>
+                    THIS WEEK
+                </p>
+
+                <h3 id="weeklyTotal">
+                    ₹0
+                </h3>
+
+            </div>
+
+
+            <div class="statCard">
+
+                <p>
+                    TRANSACTIONS
+                </p>
+
+                <h3 id="transactionCount">
+                    0
+                </h3>
+
+            </div>
+
+
+            <div class="statCard">
+
+                <p>
+                    AVERAGE
+                </p>
+
+                <h3 id="averageExpense">
+                    ₹0
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <!-- GRAPH -->
+
+        <div class="chartCard">
+
+            <div class="eyebrow">
+                SPENDING
+            </div>
+
+            <h3
+                style="
+                margin-top:7px;
+                font-size:23px;
+                "
+            >
+                Last 7 Days
+            </h3>
+
+            <div
+                id="chart"
+                class="chart"
+            ></div>
+
+        </div>
+
+
+        <!-- TIP -->
+
+        <div class="tip">
+
+            <div class="eyebrow">
+                💡 SMART TIP
+            </div>
+
+            <h3 id="smartTip">
+                Add expenses to receive spending tips.
+            </h3>
+
+        </div>
+
+
+        <!-- CATEGORIES -->
+
+        <div style="margin-top:20px">
+
+            <div class="eyebrow">
+                CATEGORY BREAKDOWN
+            </div>
+
+            <h3
+                style="
+                margin-top:7px;
+                font-size:24px;
+                "
+            >
+                Where your money goes
+            </h3>
+
+            <div
+                id="categoryList"
+                class="categoryList"
+            ></div>
+
+        </div>
+
+    </section>
 
 </div>
 
 
 <script>
 
-let income=Number(localStorage.getItem("fm_income"))||0;
+/* =====================================================
+   SETTINGS
+===================================================== */
 
-let expenses=JSON.parse(
-localStorage.getItem("fm_expenses")||"[]"
-);
+/*
+   CHANGE THIS PASSWORD IF YOU WANT.
+*/
 
-let notes=localStorage.getItem("fm_notes")||"";
+const APP_PASSWORD = "1234";
 
 
-function money(n){
-return "₹"+Number(n).toLocaleString("en-IN",{
-maximumFractionDigits:2
-});
+/* =====================================================
+   DATA
+===================================================== */
+
+let income =
+    Number(localStorage.getItem("finance_income")) || 0;
+
+
+let expenses =
+    JSON.parse(
+        localStorage.getItem("finance_expenses") || "[]"
+    );
+
+
+let notes =
+    localStorage.getItem("finance_notes") || "";
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function money(number){
+
+    return "₹" +
+        Number(number).toLocaleString(
+            "en-IN",
+            {
+                maximumFractionDigits:2
+            }
+        );
+
 }
 
 
-function totalSpent(){
-return expenses.reduce(
-(sum,e)=>sum+Number(e.amount),0
-);
+function totalExpenses(){
+
+    return expenses.reduce(
+        function(total,expense){
+            return total + Number(expense.amount);
+        },
+        0
+    );
+
 }
 
 
-function currentBalance(){
-return income-totalSpent();
+function balance(){
+
+    return income - totalExpenses();
+
 }
 
 
 function saveData(){
 
-localStorage.setItem("fm_income",income);
-
-localStorage.setItem(
-"fm_expenses",
-JSON.stringify(expenses)
-);
-
-localStorage.setItem("fm_notes",notes);
-
-}
-
-
-/* PASSWORD */
-
-document.getElementById("unlock")
-.addEventListener("click",unlock);
-
-document.getElementById("password")
-.addEventListener("keydown",e=>{
-if(e.key==="Enter")unlock();
-});
-
-
-function unlock(){
-
-if(document.getElementById("password").value==="7890"){
-
-document.getElementById("lock")
-.classList.add("hidden");
-
-update();
-
-}else{
-
-document.getElementById("error")
-.textContent="Incorrect password.";
-
-}
-
-}
-
-
-/* NAV */
-
-function go(page,button){
-
-document.querySelectorAll(".page")
-.forEach(p=>p.classList.remove("active"));
-
-document.getElementById(page)
-.classList.add("active");
-
-document.querySelectorAll(".nav button")
-.forEach(b=>b.classList.remove("active"));
-
-button.classList.add("active");
-
-if(page==="stats")updateStats();
-
-}
-
-
-/* INCOME */
-
-function setIncome(){
-
-let v=prompt("Enter your monthly income:");
-
-if(v===null)return;
-
-let n=Number(v);
-
-if(!Number.isFinite(n)||n<0){
-
-alert("Enter a valid amount.");
-
-return;
-
-}
-
-income=n;
-
-saveData();
-
-update();
-
-}
-
-
-/* MANUAL EXPENSE */
-
-function openExpense(){
-
-go(
-"expenses",
-document.querySelectorAll(".nav button")[1]
-);
-
-document.getElementById("expenseForm")
-.classList.add("show");
-
-document.getElementById("title").focus();
-
-}
-
-
-function closeExpense(){
-
-document.getElementById("expenseForm")
-.classList.remove("show");
-
-document.getElementById("title").value="";
-document.getElementById("amount").value="";
-document.getElementById("formError").textContent="";
-
-}
-
-
-function addExpense(title,amount,category){
-
-expenses.unshift({
-
-id:Date.now()+Math.random(),
-
-title:title,
-
-amount:Number(amount),
-
-category:category,
-
-date:new Date().toISOString()
-
-});
-
-saveData();
-
-update();
-
-}
-
-
-function saveExpense(){
-
-let title=document.getElementById("title").value.trim();
-
-let amount=Number(document.getElementById("amount").value);
-
-let category=document.getElementById("category").value;
-
-let error=document.getElementById("formError");
-
-
-if(!title){
-
-error.textContent="Enter an expense title.";
-
-return;
-
-}
-
-if(!Number.isFinite(amount)||amount<=0){
-
-error.textContent="Enter a valid amount.";
-
-return;
-
-}
-
-addExpense(title,amount,category);
-
-closeExpense();
-
-}
-
-
-/* DELETE */
-
-function deleteExpense(id){
-
-expenses=expenses.filter(e=>e.id!==id);
-
-saveData();
-
-update();
-
-}
-
-
-/* ICON */
-
-function categoryIcon(c){
-
-return({
-
-Food:"🍔",
-Shopping:"🛍️",
-Travel:"🚗",
-Education:"📚",
-Sports:"⚽",
-Entertainment:"🎮",
-Bills:"📄",
-Other:"💰"
-
-})[c]||"💰";
-
-}
-
-
-/* CARDS */
-
-function card(e,del=true){
-
-let div=document.createElement("div");
-
-div.className="expense-card";
-
-div.innerHTML=`
-
-<div class="expense-icon">
-${categoryIcon(e.category)}
-</div>
-
-<div class="expense-info">
-
-<h3>${escapeHTML(e.title)}</h3>
-
-<p>
-${e.category} •
-${new Date(e.date).toLocaleDateString("en-IN")}
-</p>
-
-</div>
-
-<div class="expense-amount">
--${money(e.amount)}
-</div>
-
-${del?`<button class="delete">×</button>`:""}
-
-`;
-
-if(del){
-
-div.querySelector(".delete")
-.onclick=()=>deleteExpense(e.id);
-
-}
-
-return div;
-
-}
-
-
-function escapeHTML(text){
-
-let d=document.createElement("div");
-
-d.textContent=text;
-
-return d.innerHTML;
-
-}
-
-
-/* RENDER */
-
-function renderExpenses(){
-
-let all=document.getElementById("allExpenses");
-
-let recent=document.getElementById("recent");
-
-all.innerHTML="";
-recent.innerHTML="";
-
-
-if(!expenses.length){
-
-let empty=document.createElement("div");
-
-empty.className="empty";
-
-empty.innerHTML=`
-<div style="font-size:36px">💸</div>
-<strong>No expenses yet</strong>
-Add your first expense to start tracking.
-`;
-
-all.appendChild(empty);
-
-recent.appendChild(empty.cloneNode(true));
-
-return;
-
-}
-
-
-expenses.forEach(e=>all.appendChild(card(e,true)));
-
-expenses.slice(0,3)
-.forEach(e=>recent.appendChild(card(e,false)));
-
-}
-
-
-/* DAYS */
-
-function days(){
-
-let result=[];
-
-let today=new Date();
-
-today.setHours(0,0,0,0);
-
-for(let i=6;i>=0;i--){
-
-let d=new Date(today);
-
-d.setDate(today.getDate()-i);
-
-result.push(d);
-
-}
-
-return result;
-
-}
-
-
-function sameDay(a,b){
-
-return a.getFullYear()===b.getFullYear()
-&&a.getMonth()===b.getMonth()
-&&a.getDate()===b.getDate();
-
-}
-
-
-/* STATS */
-
-function updateStats(){
-
-let ds=days();
-
-let vals=ds.map(day=>
-expenses
-.filter(e=>sameDay(new Date(e.date),day))
-.reduce((s,e)=>s+Number(e.amount),0)
-);
-
-let weekTotal=vals.reduce((a,b)=>a+b,0);
-
-let weekly=expenses.filter(e=>
-new Date(e.date)>=ds[0]
-);
-
-document.getElementById("week").textContent=
-money(weekTotal);
-
-document.getElementById("count").textContent=
-weekly.length;
-
-document.getElementById("average").textContent=
-money(weekly.length?weekTotal/weekly.length:0);
-
-drawChart(ds,vals);
-
-drawCategories();
-
-makeTip(weekTotal);
-
-}
-
-
-/* GRAPH */
-
-function drawChart(ds,vals){
-
-let chart=document.getElementById("chart");
-
-chart.innerHTML="";
-
-let max=Math.max(...vals,1);
-
-ds.forEach((d,i)=>{
-
-let col=document.createElement("div");
-
-col.className="bar-column";
-
-let value=document.createElement("div");
-
-value.className="bar-value";
-
-value.textContent=vals[i]?money(vals[i]):"";
-
-let bar=document.createElement("div");
-
-bar.className="bar";
-
-bar.style.height=
-Math.max(3,(vals[i]/max)*190)+"px";
-
-let label=document.createElement("div");
-
-label.className="bar-day";
-
-label.textContent=d.toLocaleDateString(
-"en-IN",
-{weekday:"short"}
-);
-
-col.append(value,bar,label);
-
-chart.appendChild(col);
-
-});
-
-}
-
-
-/* CATEGORIES */
-
-function drawCategories(){
-
-let box=document.getElementById("categories");
-
-box.innerHTML="";
-
-let totals={};
-
-expenses.forEach(e=>{
-totals[e.category]=
-(totals[e.category]||0)+Number(e.amount);
-});
-
-if(!Object.keys(totals).length){
-
-box.innerHTML=
-`<div class="empty">No category data yet.</div>`;
-
-return;
-
-}
-
-let max=Math.max(...Object.values(totals),1);
-
-Object.entries(totals)
-.sort((a,b)=>b[1]-a[1])
-.forEach(([cat,val])=>{
-
-let row=document.createElement("div");
-
-row.className="category-row";
-
-row.innerHTML=`
-
-<div class="category-top">
-
-<span>
-${categoryIcon(cat)} ${cat}
-</span>
-
-<b>${money(val)}</b>
-
-</div>
-
-<div class="progress">
-
-<span style="width:${val/max*100}%"></span>
-
-</div>
-`;
-
-box.appendChild(row);
-
-});
-
-}
-
-
-/* TIP */
-
-function makeTip(total){
-
-let tip=document.getElementById("tip");
-
-if(!expenses.length){
-
-tip.textContent=
-"Add expenses and I'll analyse your spending.";
-
-return;
-
-}
-
-if(income<=0){
-
-tip.textContent=
-"Set your income to get more useful spending analysis.";
-
-return;
-
-}
-
-if(currentBalance()<0){
-
-tip.textContent=
-"⚠️ Your expenses are currently higher than your income. Review your biggest spending categories.";
-
-}else if(total/income>=.3){
-
-tip.textContent=
-"Your recent spending is fairly high compared with your income. Consider checking your largest expense category.";
-
-}else{
-
-tip.textContent=
-"👍 Your spending is currently within a reasonable range. Keep tracking it regularly.";
-
-}
-
-}
-
-
-/* NOTES */
-
-document.getElementById("notes").value=notes;
-
-function saveNotes(){
-
-notes=document.getElementById("notes").value;
-
-saveData();
-
-document.getElementById("noteStatus")
-.textContent="✓ Notes saved";
-
-}
-
-
-/* UPDATE */
-
-function update(){
-
-document.getElementById("income").textContent=
-money(income);
-
-document.getElementById("totalExpenses").textContent=
-money(totalSpent());
-
-document.getElementById("balance").textContent=
-money(currentBalance());
-
-document.getElementById("balanceStatus")
-.textContent=
-currentBalance()<0
-?"⚠️ Spending is above income."
-:"● Available after expenses";
-
-renderExpenses();
-
-updateStats();
+    localStorage.setItem(
+        "finance_income",
+        income
+    );
+
+    localStorage.setItem(
+        "finance_expenses",
+        JSON.stringify(expenses)
+    );
+
+    localStorage.setItem(
+        "finance_notes",
+        notes
+    );
 
 }
 
 
 /* =====================================================
-   RECEIPT SCANNER
+   PASSWORD
 ===================================================== */
 
-const receiptInput=
-document.getElementById("receiptInput");
+function unlockApp(){
 
+    const entered =
+        document.getElementById("passwordInput").value;
 
-receiptInput.addEventListener("change",async function(){
+    if(entered === APP_PASSWORD){
 
-let file=this.files[0];
+        document
+            .getElementById("lockScreen")
+            .classList.add("hidden");
 
-if(!file)return;
+        updateEverything();
 
+    }else{
 
-let status=
-document.getElementById("scanStatus");
+        document
+            .getElementById("passwordError")
+            .textContent =
+            "Incorrect password.";
 
-let preview=
-document.getElementById("preview");
-
-let image=
-document.getElementById("receiptImage");
-
-let textBox=
-document.getElementById("ocrText");
-
-
-image.src=URL.createObjectURL(file);
-
-preview.classList.add("show");
-
-status.textContent=
-"⏳ Reading receipt... This may take a little while.";
-
-
-textBox.textContent=
-"Starting OCR...";
-
-
-try{
-
-const worker=
-await Tesseract.createWorker("eng");
-
-const result=
-await worker.recognize(file);
-
-const text=
-result.data.text||"";
-
-
-textBox.textContent=
-text||"No text detected.";
-
-
-await worker.terminate();
-
-
-let amount=
-findAmount(text);
-
-let title=
-findMerchant(text);
-
-
-document.getElementById("scanAmount")
-.value=amount||"";
-
-
-document.getElementById("scanTitle")
-.value=title||"Receipt expense";
-
-
-status.textContent=
-amount
-?"✓ Receipt scanned. Check the detected amount before saving."
-:"✓ Scan complete. Please enter/check the amount manually.";
-
-
-}catch(err){
-
-console.error(err);
-
-status.textContent=
-"❌ Could not read this receipt. Try a clearer photo.";
+    }
 
 }
 
-});
+
+document
+    .getElementById("passwordInput")
+    .addEventListener(
+        "keydown",
+        function(event){
+
+            if(event.key === "Enter"){
+                unlockApp();
+            }
+
+        }
+    );
 
 
-/* FIND MONEY */
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
-function findAmount(text){
+function showPage(page,button){
 
-let lines=
-text
-.split("\n")
-.map(x=>x.trim())
-.filter(Boolean);
+    document
+        .querySelectorAll(".page")
+        .forEach(
+            function(element){
+                element.classList.remove("active");
+            }
+        );
 
 
-/*
-Look for words commonly near
-the final amount.
-*/
+    document
+        .getElementById(page)
+        .classList.add("active");
 
-let priority=[];
 
-for(let line of lines){
+    document
+        .querySelectorAll(".nav button")
+        .forEach(
+            function(element){
+                element.classList.remove("active");
+            }
+        );
 
-if(
-/total|grand total|amount due|net total|balance due/i
-.test(line)
+
+    button.classList.add("active");
+
+
+    if(page === "stats"){
+        updateStats();
+    }
+
+}
+
+
+/* =====================================================
+   INCOME
+===================================================== */
+
+function editIncome(){
+
+    const value =
+        prompt(
+            "Enter your monthly income:"
+        );
+
+
+    if(value === null){
+        return;
+    }
+
+
+    const number =
+        Number(value);
+
+
+    if(
+        !Number.isFinite(number) ||
+        number < 0
+    ){
+
+        alert("Please enter a valid amount.");
+
+        return;
+
+    }
+
+
+    income = number;
+
+    saveData();
+
+    updateEverything();
+
+}
+
+
+/* =====================================================
+   MANUAL EXPENSE FORM
+===================================================== */
+
+function openExpenseForm(){
+
+    showPage(
+        "expenses",
+        document.querySelectorAll(".nav button")[1]
+    );
+
+
+    document
+        .getElementById("expenseForm")
+        .classList.add("show");
+
+}
+
+
+function closeExpenseForm(){
+
+    document
+        .getElementById("expenseForm")
+        .classList.remove("show");
+
+
+    document
+        .getElementById("expenseTitle")
+        .value = "";
+
+
+    document
+        .getElementById("expenseAmount")
+        .value = "";
+
+
+    document
+        .getElementById("formError")
+        .textContent = "";
+
+}
+
+
+function saveManualExpense(){
+
+    const title =
+        document
+            .getElementById("expenseTitle")
+            .value
+            .trim();
+
+
+    const amount =
+        Number(
+            document
+                .getElementById("expenseAmount")
+                .value
+        );
+
+
+    const category =
+        document
+            .getElementById("expenseCategory")
+            .value;
+
+
+    const error =
+        document.getElementById("formError");
+
+
+    if(!title){
+
+        error.textContent =
+            "Enter an expense title.";
+
+        return;
+
+    }
+
+
+    if(
+        !Number.isFinite(amount) ||
+        amount <= 0
+    ){
+
+        error.textContent =
+            "Enter a valid amount.";
+
+        return;
+
+    }
+
+
+    addExpense(
+        title,
+        amount,
+        category
+    );
+
+
+    closeExpenseForm();
+
+}
+
+
+/* =====================================================
+   ADD EXPENSE
+===================================================== */
+
+function addExpense(
+    title,
+    amount,
+    category
 ){
 
-let matches=
-line.match(
-/(?:₹|rs\.?|inr)?\s*[0-9][0-9,]*(?:\.[0-9]{1,2})?/gi
-);
+    expenses.unshift({
 
-if(matches){
+        id:
+            Date.now() +
+            Math.random(),
 
-priority.push(
-...matches
-.map(cleanMoney)
-.filter(n=>n>0)
-);
+        title:title,
 
-}
+        amount:Number(amount),
 
-}
+        category:category,
 
-}
+        date:
+            new Date().toISOString()
+
+    });
 
 
-if(priority.length){
+    saveData();
 
-return Math.max(...priority);
+    updateEverything();
 
 }
 
 
-/* fallback */
+/* =====================================================
+   DELETE
+===================================================== */
 
-let nums=[];
+function deleteExpense(id){
 
-let matches=
-text.match(
-/(?:₹|rs\.?|inr)?\s*[0-9][0-9,]*(?:\.[0-9]{1,2})?/gi
-)||[];
-
-matches.forEach(x=>{
-
-let n=cleanMoney(x);
-
-if(n>0 && n<10000000)
-nums.push(n);
-
-});
+    expenses =
+        expenses.filter(
+            function(expense){
+                return expense.id !== id;
+            }
+        );
 
 
-return nums.length?Math.max(...nums):"";
+    saveData();
+
+    updateEverything();
 
 }
 
 
-function cleanMoney(value){
+/* =====================================================
+   CATEGORY ICON
+===================================================== */
 
-return Number(
-value
-.replace(/₹|rs\.?|inr/gi,"")
-.replace(/,/g,"")
-.trim()
-);
+function categoryIcon(category){
+
+    const icons = {
+
+        Food:"🍔",
+
+        Shopping:"🛍️",
+
+        Travel:"🚗",
+
+        Education:"📚",
+
+        Sports:"⚽",
+
+        Entertainment:"🎮",
+
+        Bills:"📄",
+
+        Other:"💰"
+
+    };
+
+
+    return icons[category] || "💰";
 
 }
 
 
-/* FIND MERCHANT */
+/* =====================================================
+   SAFE TEXT
+===================================================== */
 
-function findMerchant(text){
+function safeText(text){
 
-let lines=
-text
-.split("\n")
-.map(x=>x.trim())
-.filter(x=>x.length>2);
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
 
 
-for(let line of lines){
+/* =====================================================
+   EXPENSE CARD
+===================================================== */
 
-if(
-!/total|tax|gst|invoice|receipt|date|cash|change|amount|qty|price/i
-.test(line)
-&&
-!/^\d+$/.test(line)
+function createExpenseCard(
+    expense,
+    allowDelete
 ){
 
-return line.substring(0,45);
+    const card =
+        document.createElement("div");
+
+    card.className =
+        "expenseCard";
+
+
+    card.innerHTML = `
+
+        <div class="expenseIcon">
+            ${categoryIcon(expense.category)}
+        </div>
+
+        <div class="expenseInfo">
+
+            <h3>
+                ${safeText(expense.title)}
+            </h3>
+
+            <p>
+                ${expense.category}
+                •
+                ${new Date(expense.date)
+                    .toLocaleDateString("en-IN")}
+            </p>
+
+        </div>
+
+        <div class="expenseAmount">
+            -${money(expense.amount)}
+        </div>
+
+        ${
+            allowDelete
+            ?
+            `
+            <button
+                class="deleteButton"
+            >
+                ×
+            </button>
+            `
+            :
+            ""
+        }
+
+    `;
+
+
+    if(allowDelete){
+
+        card
+            .querySelector(".deleteButton")
+            .onclick =
+                function(){
+
+                    deleteExpense(
+                        expense.id
+                    );
+
+                };
+
+    }
+
+
+    return card;
 
 }
 
+
+/* =====================================================
+   RENDER EXPENSES
+===================================================== */
+
+function renderExpenses(){
+
+    const all =
+        document.getElementById(
+            "allExpenses"
+        );
+
+
+    const recent =
+        document.getElementById(
+            "recentExpenses"
+        );
+
+
+    all.innerHTML = "";
+
+    recent.innerHTML = "";
+
+
+    if(expenses.length === 0){
+
+        const empty =
+            document.createElement("div");
+
+        empty.className = "empty";
+
+        empty.innerHTML = `
+
+            <div style="font-size:36px">
+                💸
+            </div>
+
+            <strong>
+                No expenses yet
+            </strong>
+
+            Add your first expense
+            to start tracking.
+
+        `;
+
+
+        all.appendChild(empty);
+
+        recent.appendChild(
+            empty.cloneNode(true)
+        );
+
+        return;
+
+    }
+
+
+    expenses.forEach(
+        function(expense){
+
+            all.appendChild(
+                createExpenseCard(
+                    expense,
+                    true
+                )
+            );
+
+        }
+    );
+
+
+    expenses
+        .slice(0,3)
+        .forEach(
+            function(expense){
+
+                recent.appendChild(
+                    createExpenseCard(
+                        expense,
+                        false
+                    )
+                );
+
+            }
+        );
+
 }
 
-return "Receipt expense";
+
+/* =====================================================
+   NOTES
+===================================================== */
+
+document
+    .getElementById("notesArea")
+    .value = notes;
+
+
+function saveNotes(){
+
+    notes =
+        document
+            .getElementById("notesArea")
+            .value;
+
+
+    saveData();
+
+
+    document
+        .getElementById("noteStatus")
+        .textContent =
+        "✓ Notes saved";
 
 }
 
 
-/* SAVE SCANNED */
+/* =====================================================
+   DATE FUNCTIONS
+===================================================== */
+
+function getLast7Days(){
+
+    const days = [];
+
+    const today =
+        new Date();
+
+
+    today.setHours(
+        0,0,0,0
+    );
+
+
+    for(
+        let i = 6;
+        i >= 0;
+        i--
+    ){
+
+        const date =
+            new Date(today);
+
+
+        date.setDate(
+            today.getDate() - i
+        );
+
+
+        days.push(date);
+
+    }
+
+
+    return days;
+
+}
+
+
+function sameDay(
+    date1,
+    date2
+){
+
+    return (
+        date1.getFullYear() ===
+        date2.getFullYear()
+
+        &&
+
+        date1.getMonth() ===
+        date2.getMonth()
+
+        &&
+
+        date1.getDate() ===
+        date2.getDate()
+    );
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+function updateStats(){
+
+    const days =
+        getLast7Days();
+
+
+    const values =
+        days.map(
+            function(day){
+
+                return expenses
+                    .filter(
+                        function(expense){
+
+                            return sameDay(
+                                new Date(
+                                    expense.date
+                                ),
+                                day
+                            );
+
+                        }
+                    )
+                    .reduce(
+                        function(total,expense){
+
+                            return total +
+                                Number(
+                                    expense.amount
+                                );
+
+                        },
+                        0
+                    );
+
+            }
+        );
+
+
+    const weeklyTotal =
+        values.reduce(
+            function(a,b){
+                return a+b;
+            },
+            0
+        );
+
+
+    const weekStart =
+        days[0];
+
+
+    const weeklyExpenses =
+        expenses.filter(
+            function(expense){
+
+                return new Date(
+                    expense.date
+                ) >= weekStart;
+
+            }
+        );
+
+
+    document
+        .getElementById("weeklyTotal")
+        .textContent =
+        money(weeklyTotal);
+
+
+    document
+        .getElementById("transactionCount")
+        .textContent =
+        weeklyExpenses.length;
+
+
+    document
+        .getElementById("averageExpense")
+        .textContent =
+        money(
+            weeklyExpenses.length
+            ?
+            weeklyTotal /
+            weeklyExpenses.length
+            :
+            0
+        );
+
+
+    drawChart(
+        days,
+        values
+    );
+
+
+    drawCategories();
+
+
+    generateTip(
+        weeklyTotal
+    );
+
+}
+
+
+/* =====================================================
+   GRAPH
+===================================================== */
+
+function drawChart(
+    days,
+    values
+){
+
+    const chart =
+        document.getElementById(
+            "chart"
+        );
+
+
+    chart.innerHTML = "";
+
+
+    const max =
+        Math.max(
+            ...values,
+            1
+        );
+
+
+    days.forEach(
+        function(day,index){
+
+            const column =
+                document.createElement(
+                    "div"
+                );
+
+
+            column.className =
+                "barColumn";
+
+
+            const value =
+                document.createElement(
+                    "div"
+                );
+
+
+            value.className =
+                "barValue";
+
+
+            value.textContent =
+                values[index]
+                ?
+                money(values[index])
+                :
+                "";
+
+
+            const bar =
+                document.createElement(
+                    "div"
+                );
+
+
+            bar.className = "bar";
+
+
+            bar.style.height =
+                Math.max(
+                    3,
+                    (values[index]/max)*190
+                ) + "px";
+
+
+            const label =
+                document.createElement(
+                    "div"
+                );
+
+
+            label.className =
+                "barDay";
+
+
+            label.textContent =
+                day.toLocaleDateString(
+                    "en-IN",
+                    {
+                        weekday:"short"
+                    }
+                );
+
+
+            column.appendChild(value);
+
+            column.appendChild(bar);
+
+            column.appendChild(label);
+
+            chart.appendChild(column);
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CATEGORY BREAKDOWN
+===================================================== */
+
+function drawCategories(){
+
+    const box =
+        document.getElementById(
+            "categoryList"
+        );
+
+
+    box.innerHTML = "";
+
+
+    const totals = {};
+
+
+    expenses.forEach(
+        function(expense){
+
+            totals[expense.category] =
+                (
+                    totals[expense.category]
+                    ||
+                    0
+                )
+                +
+                Number(
+                    expense.amount
+                );
+
+        }
+    );
+
+
+    const categories =
+        Object.entries(totals);
+
+
+    if(categories.length === 0){
+
+        box.innerHTML =
+            `
+            <div class="empty">
+                No category data yet.
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    const max =
+        Math.max(
+            ...categories.map(
+                function(item){
+                    return item[1];
+                }
+            ),
+            1
+        );
+
+
+    categories
+        .sort(
+            function(a,b){
+                return b[1]-a[1];
+            }
+        )
+        .forEach(
+            function(item){
+
+                const category =
+                    item[0];
+
+                const value =
+                    item[1];
+
+
+                const row =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                row.className =
+                    "categoryRow";
+
+
+                row.innerHTML = `
+
+                    <div class="categoryTop">
+
+                        <span>
+                            ${categoryIcon(category)}
+                            ${category}
+                        </span>
+
+                        <b>
+                            ${money(value)}
+                        </b>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <span
+                            style="
+                            width:
+                            ${
+                                (value/max)*100
+                            }%
+                            "
+                        ></span>
+
+                    </div>
+
+                `;
+
+
+                box.appendChild(row);
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   SMART TIP
+===================================================== */
+
+function generateTip(
+    weekly
+){
+
+    const tip =
+        document.getElementById(
+            "smartTip"
+        );
+
+
+    if(expenses.length === 0){
+
+        tip.textContent =
+            "Add expenses and I'll analyse your spending.";
+
+        return;
+
+    }
+
+
+    if(income <= 0){
+
+        tip.textContent =
+            "Set your monthly income to get better spending insights.";
+
+        return;
+
+    }
+
+
+    if(balance() < 0){
+
+        tip.textContent =
+            "⚠️ Your expenses are higher than your income. Check your biggest spending categories.";
+
+    }
+
+    else if(
+        weekly / income >= 0.30
+    ){
+
+        tip.textContent =
+            "Your recent spending is getting high compared with your income. Review your largest expense category.";
+
+    }
+
+    else{
+
+        tip.textContent =
+            "👍 Your spending is currently within your income. Keep tracking your expenses regularly.";
+
+    }
+
+}
+
+
+/* =====================================================
+   RECEIPT PHOTO PICKER
+===================================================== */
+
+function chooseReceipt(){
+
+    document
+        .getElementById("receiptInput")
+        .click();
+
+}
+
+
+/* =====================================================
+   RECEIPT FILE SELECTED
+===================================================== */
+
+document
+    .getElementById("receiptInput")
+    .addEventListener(
+        "change",
+        function(){
+
+            const file =
+                this.files[0];
+
+
+            if(!file){
+                return;
+            }
+
+
+            processReceipt(
+                file
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   PROCESS RECEIPT
+===================================================== */
+
+async function processReceipt(
+    file
+){
+
+    const preview =
+        document.getElementById(
+            "scanPreview"
+        );
+
+
+    const image =
+        document.getElementById(
+            "receiptImage"
+        );
+
+
+    const status =
+        document.getElementById(
+            "scanStatus"
+        );
+
+
+    const ocr =
+        document.getElementById(
+            "ocrText"
+        );
+
+
+    preview.classList.add("show");
+
+
+    image.src =
+        URL.createObjectURL(file);
+
+
+    status.textContent =
+        "⏳ Reading receipt...";
+
+
+    ocr.textContent =
+        "OCR is starting...";
+
+
+    try{
+
+        const worker =
+            await Tesseract.createWorker(
+                "eng"
+            );
+
+
+        const result =
+            await worker.recognize(
+                file
+            );
+
+
+        const text =
+            result.data.text || "";
+
+
+        ocr.textContent =
+            text ||
+            "No readable text found.";
+
+
+        await worker.terminate();
+
+
+        const amount =
+            detectAmount(text);
+
+
+        const merchant =
+            detectMerchant(text);
+
+
+        document
+            .getElementById(
+                "scannedAmount"
+            )
+            .value =
+            amount || "";
+
+
+        document
+            .getElementById(
+                "scannedTitle"
+            )
+            .value =
+            merchant ||
+            "Receipt Expense";
+
+
+        status.textContent =
+            amount
+            ?
+            "✓ Scan complete. Check the amount before saving."
+            :
+            "✓ Scan complete. Enter the amount manually if needed.";
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        status.textContent =
+            "❌ Could not read this receipt. Try a clearer photo.";
+
+        ocr.textContent =
+            "OCR failed. You can still enter the amount manually.";
+
+    }
+
+}
+
+
+/* =====================================================
+   DETECT AMOUNT
+===================================================== */
+
+function detectAmount(
+    text
+){
+
+    const lines =
+        text
+            .split("\n")
+            .map(
+                function(line){
+                    return line.trim();
+                }
+            )
+            .filter(Boolean);
+
+
+    const priorityNumbers = [];
+
+
+    lines.forEach(
+        function(line){
+
+            if(
+                /total|grand total|amount due|net total|balance due/i
+                .test(line)
+            ){
+
+                const matches =
+                    line.match(
+                        /(?:₹|rs\.?|inr)?\s*[0-9][0-9,]*(?:\.[0-9]{1,2})?/gi
+                    );
+
+
+                if(matches){
+
+                    matches.forEach(
+                        function(value){
+
+                            const number =
+                                cleanNumber(
+                                    value
+                                );
+
+
+                            if(
+                                number > 0 &&
+                                number < 10000000
+                            ){
+
+                                priorityNumbers.push(
+                                    number
+                                );
+
+                            }
+
+                        }
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+
+    if(priorityNumbers.length){
+
+        return Math.max(
+            ...priorityNumbers
+        );
+
+    }
+
+
+    const allNumbers = [];
+
+
+    const matches =
+        text.match(
+            /(?:₹|rs\.?|inr)?\s*[0-9][0-9,]*(?:\.[0-9]{1,2})?/gi
+        )
+        ||
+        [];
+
+
+    matches.forEach(
+        function(value){
+
+            const number =
+                cleanNumber(
+                    value
+                );
+
+
+            if(
+                number > 0 &&
+                number < 10000000
+            ){
+
+                allNumbers.push(
+                    number
+                );
+
+            }
+
+        }
+    );
+
+
+    return allNumbers.length
+        ?
+        Math.max(...allNumbers)
+        :
+        "";
+
+}
+
+
+/* =====================================================
+   CLEAN NUMBER
+===================================================== */
+
+function cleanNumber(
+    value
+){
+
+    return Number(
+        value
+            .replace(
+                /₹|rs\.?|inr/gi,
+                ""
+            )
+            .replace(
+                /,/g,
+                ""
+            )
+            .trim()
+    );
+
+}
+
+
+/* =====================================================
+   DETECT MERCHANT
+===================================================== */
+
+function detectMerchant(
+    text
+){
+
+    const lines =
+        text
+            .split("\n")
+            .map(
+                function(line){
+                    return line.trim();
+                }
+            )
+            .filter(
+                function(line){
+                    return line.length > 2;
+                }
+            );
+
+
+    for(
+        let i=0;
+        i<Math.min(
+            lines.length,
+            8
+        );
+        i++
+    ){
+
+        const line =
+            lines[i];
+
+
+        if(
+            !/total|tax|gst|invoice|receipt|date|cash|change|amount|qty|price/i
+            .test(line)
+            &&
+            !/^\d+$/.test(line)
+        ){
+
+            return line.substring(
+                0,
+                45
+            );
+
+        }
+
+    }
+
+
+    return "Receipt Expense";
+
+}
+
+
+/* =====================================================
+   SAVE SCANNED EXPENSE
+===================================================== */
 
 function saveScannedExpense(){
 
-let title=
-document.getElementById("scanTitle")
-.value.trim();
-
-let amount=
-Number(
-document.getElementById("scanAmount").value
-);
-
-let category=
-document.getElementById("scanCategory").value;
+    const title =
+        document
+            .getElementById(
+                "scannedTitle"
+            )
+            .value
+            .trim();
 
 
-if(!title){
+    const amount =
+        Number(
+            document
+                .getElementById(
+                    "scannedAmount"
+                )
+                .value
+        );
 
-alert("Enter/check the expense title.");
 
-return;
+    const category =
+        document
+            .getElementById(
+                "scannedCategory"
+            )
+            .value;
+
+
+    if(!title){
+
+        alert(
+            "Enter the expense title."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !Number.isFinite(amount) ||
+        amount <= 0
+    ){
+
+        alert(
+            "Please check the detected amount."
+        );
+
+        return;
+
+    }
+
+
+    addExpense(
+        title,
+        amount,
+        category
+    );
+
+
+    document
+        .getElementById(
+            "scanPreview"
+        )
+        .classList.remove("show");
+
+
+    document
+        .getElementById(
+            "scanStatus"
+        )
+        .textContent =
+        "✓ Expense added successfully.";
+
+
+    document
+        .getElementById(
+            "receiptInput"
+        )
+        .value = "";
 
 }
 
-if(!Number.isFinite(amount)||amount<=0){
 
-alert("Please check the detected amount.");
+/* =====================================================
+   MAIN UPDATE
+===================================================== */
 
-return;
+function updateEverything(){
+
+    document
+        .getElementById(
+            "incomeAmount"
+        )
+        .textContent =
+        money(income);
+
+
+    document
+        .getElementById(
+            "expenseTotal"
+        )
+        .textContent =
+        money(totalExpenses());
+
+
+    document
+        .getElementById(
+            "balanceAmount"
+        )
+        .textContent =
+        money(balance());
+
+
+    document
+        .getElementById(
+            "balanceMessage"
+        )
+        .textContent =
+        balance() < 0
+        ?
+        "⚠️ Expenses are above income."
+        :
+        "● Available after expenses";
+
+
+    renderExpenses();
+
+    updateStats();
 
 }
 
 
-addExpense(
-title,
-amount,
-category
-);
+/* =====================================================
+   START
+===================================================== */
 
-
-document.getElementById("preview")
-.classList.remove("show");
-
-document.getElementById("scanStatus")
-.textContent=
-"✓ Expense added successfully.";
-
-document.getElementById("receiptInput")
-.value="";
-
-}
-
-
-/* INITIAL */
-
-document.getElementById("app")
-.classList.remove("hidden");
+updateEverything();
 
 </script>
 
