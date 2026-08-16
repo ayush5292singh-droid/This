@@ -2,156 +2,126 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Finance Manager</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Finance Manager Pro</title>
+
+<!-- OCR -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@7/dist/tesseract.min.js"></script>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-
 body{
-    font-family:Inter,Arial,sans-serif;
+    font-family:Arial,sans-serif;
     background:#070914;
-    color:#fff;
-    min-height:100vh;
+    color:white;
+    min-height:100vh
 }
-
-button,input,textarea,select{font:inherit}
-
+button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-
 .hidden{display:none!important}
-
-/* LOCK */
 
 #lock{
     position:fixed;
     inset:0;
-    z-index:1000;
+    z-index:99;
     display:flex;
     justify-content:center;
     align-items:center;
     padding:20px;
-    background:
-    radial-gradient(circle at 50% 10%,#40358a 0,#15132d 35%,#070914 75%);
+    background:radial-gradient(circle at top,#40358a,#070914 70%)
 }
-
 .lock-card{
     width:420px;
     max-width:100%;
     padding:40px 30px;
-    border:1px solid #454968;
-    border-radius:32px;
     text-align:center;
-    background:rgba(17,20,38,.94);
-    box-shadow:0 30px 100px #000;
+    border:1px solid #414864;
+    border-radius:30px;
+    background:#111526;
+    box-shadow:0 30px 100px #000
 }
-
 .lock-logo{
     width:80px;
     height:80px;
     margin:auto;
-    border-radius:25px;
     display:grid;
     place-items:center;
+    border-radius:25px;
     font-size:38px;
-    background:linear-gradient(135deg,#8b7cff,#4faaff);
+    background:linear-gradient(135deg,#8c7bff,#4da9ff)
 }
-
 .lock-card h1{
-    margin-top:22px;
-    font-size:42px;
+    margin-top:20px;
+    font-size:40px
 }
-
-.lock-card h1 span{color:#8272ff}
-
+.lock-card h1 span{color:#8170ff}
 .lock-card p{
-    margin:12px 0 25px;
-    color:#8991aa;
+    margin:12px 0;
+    color:#858da5
 }
-
 #password{
     width:100%;
-    height:55px;
-    padding:0 18px;
-    border:1px solid #353b55;
-    border-radius:15px;
+    height:54px;
+    padding:0 15px;
+    border:1px solid #343b53;
+    border-radius:14px;
     outline:none;
-    background:#090c18;
     color:white;
-    text-align:center;
+    background:#080b15;
+    text-align:center
 }
-
 .primary{
     border:0;
     color:white;
-    background:linear-gradient(110deg,#7665ff,#4b9fff);
+    background:linear-gradient(110deg,#7665ff,#4b9fff)
 }
-
 #unlock{
     width:100%;
-    height:55px;
-    margin-top:12px;
-    border-radius:15px;
-    font-weight:800;
+    height:54px;
+    margin-top:10px;
+    border-radius:14px;
+    font-weight:bold
 }
-
-#error{
-    min-height:18px;
-    color:#ff7080!important;
-}
-
-/* APP */
+#error{color:#ff7180!important}
 
 #app{
     max-width:1150px;
     margin:auto;
-    padding:30px 20px 70px;
+    padding:25px 18px 70px
 }
-
-/* HEADER */
 
 .header{
+    min-height:250px;
     display:flex;
     align-items:center;
-    justify-content:space-between;
-    min-height:250px;
+    justify-content:space-between
 }
-
 .eyebrow{
     color:#858da8;
     font-size:11px;
-    font-weight:800;
-    letter-spacing:3px;
+    font-weight:bold;
+    letter-spacing:3px
 }
-
 .header h1{
     margin-top:12px;
-    font-size:clamp(48px,8vw,82px);
-    line-height:.88;
-    letter-spacing:-5px;
+    font-size:clamp(50px,8vw,82px);
+    line-height:.9;
+    letter-spacing:-5px
 }
-
-.header h1 span{color:#8272ff}
-
+.header h1 span{color:#8170ff}
 .subtitle{
-    margin-top:22px;
-    color:#8991a9;
-    font-size:17px;
+    margin-top:20px;
+    color:#858da5;
+    font-size:17px
 }
-
-/* ROBOT */
 
 .robot{
     width:210px;
     height:220px;
     position:relative;
-    animation:float 3s ease-in-out infinite;
+    animation:float 3s ease-in-out infinite
 }
-
-@keyframes float{
-    50%{transform:translateY(-10px)}
-}
-
+@keyframes float{50%{transform:translateY(-10px)}}
 .head{
     position:absolute;
     top:10px;
@@ -160,9 +130,8 @@ button{cursor:pointer}
     height:100px;
     border-radius:30px;
     background:linear-gradient(135deg,#897aff,#5141bd);
-    box-shadow:0 15px 35px #4f45bd55;
+    box-shadow:0 15px 35px #4f45bd55
 }
-
 .head:before{
     content:"";
     position:absolute;
@@ -170,9 +139,8 @@ button{cursor:pointer}
     height:28px;
     top:-28px;
     left:60px;
-    background:#8272ff;
+    background:#8170ff
 }
-
 .head:after{
     content:"";
     position:absolute;
@@ -182,9 +150,8 @@ button{cursor:pointer}
     left:57px;
     border-radius:50%;
     background:#6bd1ff;
-    box-shadow:0 0 18px #6bd1ff;
+    box-shadow:0 0 18px #6bd1ff
 }
-
 .eye{
     position:absolute;
     top:33px;
@@ -192,12 +159,10 @@ button{cursor:pointer}
     height:19px;
     border-radius:50%;
     background:#c4f3ff;
-    box-shadow:0 0 12px #6bd1ff;
+    box-shadow:0 0 12px #6bd1ff
 }
-
 .eye.one{left:34px}
 .eye.two{right:34px}
-
 .mouth{
     position:absolute;
     bottom:18px;
@@ -205,9 +170,8 @@ button{cursor:pointer}
     width:32px;
     height:7px;
     border-radius:20px;
-    background:#c5bdff;
+    background:#c5bdff
 }
-
 .body{
     position:absolute;
     top:125px;
@@ -219,42 +183,29 @@ button{cursor:pointer}
     border-radius:23px;
     border:1px solid #424a67;
     background:#151a2b;
-    font-size:28px;
+    font-size:28px
 }
-
 .arm{
     position:absolute;
     top:130px;
     width:15px;
     height:58px;
     border-radius:20px;
-    background:#6269bd;
+    background:#6269bd
 }
-
-.arm.left{
-    left:37px;
-    transform:rotate(25deg);
-}
-
-.arm.right{
-    right:37px;
-    transform:rotate(-25deg);
-}
-
-/* BALANCE */
+.arm.left{left:37px;transform:rotate(25deg)}
+.arm.right{right:37px;transform:rotate(-25deg)}
 
 .balance{
     padding:30px;
     border-radius:30px;
     background:linear-gradient(115deg,#5546d9,#7868ff,#479dff);
-    box-shadow:0 25px 70px #5b50dc33;
+    box-shadow:0 25px 70px #5b50dc33
 }
-
 .balance-top{
     display:flex;
-    justify-content:space-between;
+    justify-content:space-between
 }
-
 .balance-icon{
     width:52px;
     height:52px;
@@ -262,26 +213,20 @@ button{cursor:pointer}
     place-items:center;
     border-radius:16px;
     background:#ffffff20;
-    font-size:25px;
+    font-size:25px
 }
-
 .balance h2{
-    margin-top:28px;
-    font-size:clamp(45px,7vw,70px);
-    letter-spacing:-3px;
+    margin-top:25px;
+    font-size:clamp(45px,7vw,70px)
 }
-
 .balance small{color:#ffffffaa}
-
-/* CARDS */
 
 .two{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:15px;
-    margin-top:15px;
+    margin-top:15px
 }
-
 .info-card{
     padding:22px;
     display:flex;
@@ -289,68 +234,56 @@ button{cursor:pointer}
     gap:15px;
     border:1px solid #2c3249;
     border-radius:23px;
-    background:#111526;
+    background:#111526
 }
-
 .icon{
     width:55px;
     height:55px;
-    flex-shrink:0;
     display:grid;
     place-items:center;
     border-radius:17px;
     background:#24213f;
-    font-size:24px;
+    font-size:24px
 }
-
+.info-card .grow{flex:1}
 .info-card p{
     color:#777f96;
     font-size:10px;
-    font-weight:800;
-    letter-spacing:2px;
+    font-weight:bold;
+    letter-spacing:2px
 }
-
 .info-card h3{
     margin-top:6px;
-    font-size:24px;
+    font-size:24px
 }
-
-.info-card .grow{flex:1}
-
 .small-btn{
     padding:11px 15px;
     border:0;
     border-radius:12px;
     color:#aaa0ff;
     background:#292f45;
-    font-weight:800;
+    font-weight:bold
 }
-
-/* NAV */
 
 .nav{
     display:flex;
     gap:10px;
     margin:28px 0;
-    overflow:auto;
+    overflow:auto
 }
-
 .nav button{
     white-space:nowrap;
     padding:13px 19px;
     border:1px solid #30364d;
     border-radius:14px;
     color:#9199af;
-    background:#111526;
+    background:#111526
 }
-
 .nav button.active{
     color:white;
     border-color:transparent;
-    background:linear-gradient(110deg,#7665ff,#4b9fff);
+    background:linear-gradient(110deg,#7665ff,#4b9fff)
 }
-
-/* PAGES */
 
 .page{display:none}
 .page.active{display:block}
@@ -359,27 +292,22 @@ button{cursor:pointer}
     display:flex;
     align-items:end;
     justify-content:space-between;
-    gap:15px;
+    gap:15px
 }
-
 .page-head h2{
     margin-top:7px;
-    font-size:38px;
+    font-size:38px
 }
-
 .page-head p{
     margin-top:7px;
-    color:#858da5;
+    color:#858da5
 }
-
 .add{
     padding:15px 20px;
     border:0;
     border-radius:14px;
-    font-weight:800;
+    font-weight:bold
 }
-
-/* FORM */
 
 .form{
     display:none;
@@ -387,13 +315,10 @@ button{cursor:pointer}
     padding:22px;
     border:1px solid #30364d;
     border-radius:23px;
-    background:#111526;
+    background:#111526
 }
-
 .form.show{display:block}
-
-.form input,
-.form select{
+.form input,.form select{
     width:100%;
     height:52px;
     margin-top:10px;
@@ -401,36 +326,92 @@ button{cursor:pointer}
     border:1px solid #30364d;
     border-radius:13px;
     outline:none;
-    background:#080b15;
     color:white;
+    background:#080b15
 }
-
 .form-actions{
     display:flex;
     gap:10px;
-    margin-top:12px;
+    margin-top:12px
 }
-
 .form-actions button{
     flex:1;
     height:48px;
     border:0;
     border-radius:12px;
-    font-weight:800;
+    font-weight:bold
 }
-
 .cancel{
-    background:#292f43;
-    color:#aab0c2;
+    color:#aaa;
+    background:#292f43
 }
-
 .form-error{
     margin-top:8px;
     color:#ff7180;
-    font-size:12px;
+    font-size:12px
 }
 
-/* EXPENSE */
+.scan-area{
+    margin-top:15px;
+    padding:22px;
+    border:1px solid #3d396b;
+    border-radius:22px;
+    background:linear-gradient(135deg,#16172e,#101426)
+}
+.scan-title{
+    font-size:20px;
+    font-weight:bold
+}
+.scan-area p{
+    margin-top:7px;
+    color:#858da5;
+    line-height:1.5
+}
+.scan-btn{
+    margin-top:15px;
+    padding:14px 18px;
+    border:0;
+    border-radius:13px;
+    font-weight:bold;
+    color:white;
+    background:linear-gradient(110deg,#765eff,#43a8ff)
+}
+#receiptInput{display:none}
+
+.scan-status{
+    margin-top:12px;
+    color:#8e96ad;
+    font-size:13px
+}
+
+.preview{
+    display:none;
+    margin-top:15px;
+    padding:18px;
+    border:1px solid #30364d;
+    border-radius:20px;
+    background:#111526
+}
+.preview.show{display:block}
+.preview img{
+    width:100%;
+    max-height:220px;
+    object-fit:contain;
+    border-radius:13px;
+    background:#05070d
+}
+.preview h3{margin-top:15px}
+.ocr-text{
+    max-height:100px;
+    overflow:auto;
+    margin-top:8px;
+    padding:10px;
+    border-radius:10px;
+    color:#8e96ad;
+    background:#080b15;
+    font-size:11px;
+    white-space:pre-wrap
+}
 
 .expense-card{
     display:flex;
@@ -440,9 +421,8 @@ button{cursor:pointer}
     padding:17px;
     border:1px solid #292f42;
     border-radius:21px;
-    background:#111526;
+    background:#111526
 }
-
 .expense-icon{
     width:53px;
     height:53px;
@@ -450,24 +430,19 @@ button{cursor:pointer}
     place-items:center;
     border-radius:16px;
     background:#24213f;
-    font-size:23px;
+    font-size:23px
 }
-
 .expense-info{flex:1}
-
 .expense-info h3{font-size:17px}
-
 .expense-info p{
     margin-top:5px;
     color:#727b93;
-    font-size:11px;
+    font-size:11px
 }
-
 .expense-amount{
     color:#ff7080;
-    font-weight:900;
+    font-weight:bold
 }
-
 .delete{
     width:36px;
     height:36px;
@@ -475,36 +450,30 @@ button{cursor:pointer}
     border-radius:10px;
     background:#302033;
     color:#ff7080;
-    font-size:20px;
+    font-size:20px
 }
-
 .empty{
     margin-top:15px;
     padding:45px 20px;
     border:1px dashed #30374d;
     border-radius:22px;
     text-align:center;
-    color:#777f95;
+    color:#777f95
 }
-
 .empty strong{
     display:block;
-    color:white;
     margin:8px 0;
+    color:white
 }
-
-/* NOTES */
 
 .notes{
     margin-top:20px;
     padding:23px;
     border:1px solid #292f43;
     border-radius:23px;
-    background:#111526;
+    background:#111526
 }
-
 .notes h2{margin-top:7px}
-
 textarea{
     width:100%;
     min-height:140px;
@@ -514,58 +483,49 @@ textarea{
     border:1px solid #30374d;
     border-radius:14px;
     outline:none;
-    background:#080b15;
     color:white;
+    background:#080b15
 }
-
 .note-bottom{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-top:10px;
+    margin-top:10px
 }
-
 .note-bottom span{
     color:#727b93;
-    font-size:12px;
+    font-size:12px
 }
-
-/* STATS */
 
 .stat-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:15px;
-    margin-top:20px;
+    margin-top:20px
 }
-
 .stat{
     padding:22px;
     border:1px solid #292f42;
     border-radius:22px;
-    background:#111526;
+    background:#111526
 }
-
 .stat p{
     color:#777f95;
     font-size:10px;
-    font-weight:800;
-    letter-spacing:2px;
+    font-weight:bold;
+    letter-spacing:2px
 }
-
 .stat h3{
     margin-top:8px;
-    font-size:27px;
+    font-size:27px
 }
-
 .chart-card{
     margin-top:18px;
     padding:24px;
     border:1px solid #292f42;
     border-radius:24px;
-    background:#111526;
+    background:#111526
 }
-
 .chart{
     height:280px;
     margin-top:20px;
@@ -573,736 +533,526 @@ textarea{
     align-items:end;
     justify-content:space-around;
     gap:8px;
-    border-bottom:1px solid #30374d;
+    border-bottom:1px solid #30374d
 }
-
 .bar-column{
     height:100%;
     flex:1;
     display:flex;
     flex-direction:column;
     justify-content:end;
-    align-items:center;
+    align-items:center
 }
-
 .bar-value{
     min-height:15px;
     color:#8c94aa;
-    font-size:9px;
+    font-size:9px
 }
-
 .bar{
     width:35px;
     max-width:80%;
     min-height:3px;
     border-radius:9px 9px 3px 3px;
-    background:linear-gradient(to top,#6251e8,#63c0ff);
+    background:linear-gradient(to top,#6251e8,#63c0ff)
 }
-
 .bar-day{
     margin:7px 0;
     color:#737c93;
-    font-size:10px;
+    font-size:10px
 }
-
 .tip{
     margin-top:18px;
     padding:23px;
     border:1px solid #3c3765;
     border-radius:22px;
-    background:#17172c;
+    background:#17172c
 }
-
 .tip h3{
     margin-top:8px;
     line-height:1.5;
-    color:#d8d5ff;
+    color:#d8d5ff
 }
-
-/* CATEGORY */
-
-.category-list{
-    margin-top:15px;
-}
-
+.category-list{margin-top:15px}
 .category-row{
     margin-top:10px;
     padding:15px;
     border-radius:15px;
     background:#111526;
-    border:1px solid #292f42;
+    border:1px solid #292f42
 }
-
 .category-top{
     display:flex;
     justify-content:space-between;
-    margin-bottom:8px;
+    margin-bottom:8px
 }
-
 .progress{
     height:7px;
     overflow:hidden;
     border-radius:10px;
-    background:#252b3e;
+    background:#252b3e
 }
-
 .progress span{
     display:block;
     height:100%;
     border-radius:10px;
-    background:linear-gradient(90deg,#7665ff,#55baff);
+    background:linear-gradient(90deg,#7665ff,#55baff)
 }
-
-/* MOBILE */
 
 @media(max-width:700px){
-
     #app{padding:22px 14px 60px}
-
     .header{min-height:210px}
-
     .robot{display:none}
-
-    .header h1{
-        font-size:53px;
-    }
-
-    .two,
-    .stat-grid{
-        grid-template-columns:1fr;
-    }
-
+    .header h1{font-size:53px}
+    .two,.stat-grid{grid-template-columns:1fr}
     .page-head{
         align-items:stretch;
-        flex-direction:column;
+        flex-direction:column
     }
-
     .add{width:100%}
-
-    .expense-card{
-        padding:13px;
-    }
-
-    .expense-amount{
-        font-size:13px;
-    }
-
+    .expense-card{padding:13px}
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- LOCK SCREEN -->
+<!-- PASSWORD -->
 
 <div id="lock">
+<div class="lock-card">
+<div class="lock-logo">🔐</div>
+<h1>FINANCE <span>MANAGER</span></h1>
+<p>Your money. Your control.</p>
+<input id="password" type="password" placeholder="Enter password">
+<button id="unlock" class="primary">UNLOCK →</button>
+<p id="error"></p>
+</div>
+</div>
 
-    <div class="lock-card">
 
-        <div class="lock-logo">🔐</div>
+<div id="app">
 
-        <h1>
-            FINANCE
-            <span>MANAGER</span>
-        </h1>
+<!-- HEADER -->
 
-        <p>Your money. Your control.</p>
+<section class="header">
+<div>
+<div class="eyebrow">SMART MONEY CONTROL</div>
+<h1>FINANCE <span>MANAGER</span></h1>
+<div class="subtitle">Take control of your money.</div>
+</div>
 
-        <input
-            id="password"
-            type="password"
-            placeholder="Enter password"
-        >
+<div class="robot">
+<div class="head">
+<div class="eye one"></div>
+<div class="eye two"></div>
+<div class="mouth"></div>
+</div>
+<div class="body">₹</div>
+<div class="arm left"></div>
+<div class="arm right"></div>
+</div>
+</section>
 
-        <button
-            id="unlock"
-            class="primary"
-        >
-            UNLOCK →
-        </button>
 
-        <p id="error"></p>
+<!-- BALANCE -->
 
-    </div>
+<section class="balance">
+<div class="balance-top">
+<div>
+<div class="eyebrow" style="color:#ffffffaa">TOTAL BALANCE</div>
+<small>● Available money</small>
+</div>
+<div class="balance-icon">₹</div>
+</div>
+<h2 id="balance">₹0</h2>
+<small id="balanceStatus">Set your income to begin.</small>
+</section>
+
+
+<section class="two">
+
+<div class="info-card">
+<div class="icon">💼</div>
+<div class="grow">
+<p>MONTHLY INCOME</p>
+<h3 id="income">₹0</h3>
+</div>
+<button class="small-btn" onclick="setIncome()">EDIT</button>
+</div>
+
+<div class="info-card">
+<div class="icon">💸</div>
+<div class="grow">
+<p>TOTAL EXPENSES</p>
+<h3 id="totalExpenses">₹0</h3>
+</div>
+</div>
+
+</section>
+
+
+<nav class="nav">
+
+<button class="active" onclick="go('home',this)">🏠 Home</button>
+
+<button onclick="go('expenses',this)">💸 Expenses</button>
+
+<button onclick="go('stats',this)">📊 Stats</button>
+
+</nav>
+
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+<div class="page-head">
+
+<div>
+<div class="eyebrow">MONEY TRACKER</div>
+<h2>Recent Expenses</h2>
+<p>Your latest transactions.</p>
+</div>
+
+<button class="add primary" onclick="openExpense()">
++ ADD EXPENSE
+</button>
+
+</div>
+
+<div id="recent"></div>
+
+<div class="notes">
+
+<div class="eyebrow">QUICK NOTES</div>
+<h2>Money Notes</h2>
+
+<textarea id="notes"
+placeholder="Write something about your money..."></textarea>
+
+<div class="note-bottom">
+<span id="noteStatus">Not saved</span>
+<button class="small-btn" onclick="saveNotes()">SAVE NOTES</button>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- EXPENSES -->
+
+<section id="expenses" class="page">
+
+<div class="page-head">
+
+<div>
+<div class="eyebrow">MONEY TRACKER</div>
+<h2>Expenses</h2>
+<p>Track every rupee automatically.</p>
+</div>
+
+<button class="add primary" onclick="openExpense()">
++ ADD EXPENSE
+</button>
 
 </div>
 
 
-<!-- MAIN APP -->
+<!-- SCANNER -->
 
-<div id="app">
+<div class="scan-area">
 
-    <!-- HEADER -->
+<div class="eyebrow">AI RECEIPT SCANNER</div>
 
-    <section class="header">
+<div class="scan-title">
+📷 Scan a receipt
+</div>
 
-        <div>
+<p>
+Take a picture of your receipt and the app will try to read the
+text and find the total amount automatically.
+</p>
 
-            <div class="eyebrow">
-                SMART MONEY CONTROL
-            </div>
+<input
+id="receiptInput"
+type="file"
+accept="image/*"
+capture="environment"
+>
 
-            <h1>
-                FINANCE
-                <span>MANAGER</span>
-            </h1>
+<button
+class="scan-btn"
+onclick="document.getElementById('receiptInput').click()"
+>
+📷 SCAN RECEIPT
+</button>
 
-            <div class="subtitle">
-                Take control of your money.
-            </div>
+<div id="scanStatus" class="scan-status">
+Ready to scan.
+</div>
 
-        </div>
+<div id="preview" class="preview">
 
+<img id="receiptImage">
 
-        <div class="robot">
+<h3>Detected receipt</h3>
 
-            <div class="head">
-                <div class="eye one"></div>
-                <div class="eye two"></div>
-                <div class="mouth"></div>
-            </div>
+<div id="ocrText" class="ocr-text"></div>
 
-            <div class="body">₹</div>
+<div style="margin-top:15px">
 
-            <div class="arm left"></div>
-            <div class="arm right"></div>
+<input
+id="scanTitle"
+style="width:100%;height:50px;padding:0 13px;border:1px solid #30364d;border-radius:12px;background:#080b15;color:white"
+placeholder="Expense title"
+>
 
-        </div>
+<input
+id="scanAmount"
+type="number"
+style="width:100%;height:50px;margin-top:10px;padding:0 13px;border:1px solid #30364d;border-radius:12px;background:#080b15;color:white"
+placeholder="Detected amount"
+>
 
-    </section>
+<select
+id="scanCategory"
+style="width:100%;height:50px;margin-top:10px;padding:0 13px;border:1px solid #30364d;border-radius:12px;background:#080b15;color:white"
+>
 
+<option>Food</option>
+<option>Shopping</option>
+<option>Travel</option>
+<option>Education</option>
+<option>Sports</option>
+<option>Entertainment</option>
+<option>Bills</option>
+<option>Other</option>
 
-    <!-- BALANCE -->
+</select>
 
-    <section class="balance">
+<button
+class="scan-btn"
+style="width:100%"
+onclick="saveScannedExpense()"
+>
+✓ ADD SCANNED EXPENSE
+</button>
 
-        <div class="balance-top">
+</div>
 
-            <div>
+</div>
 
-                <div class="eyebrow" style="color:#ffffffaa">
-                    TOTAL BALANCE
-                </div>
+</div>
 
-                <small>● Available money</small>
 
-            </div>
+<!-- MANUAL FORM -->
 
-            <div class="balance-icon">₹</div>
+<div id="expenseForm" class="form">
 
-        </div>
+<div class="eyebrow">NEW TRANSACTION</div>
 
-        <h2 id="balance">₹0</h2>
+<h3 style="margin-top:7px">Add an expense</h3>
 
-        <small id="balanceStatus">
-            Set your monthly income to begin.
-        </small>
+<input id="title" placeholder="Expense title">
 
-    </section>
+<input id="amount" type="number" min="1" placeholder="Amount spent">
 
+<select id="category">
+<option value="Food">🍔 Food</option>
+<option value="Shopping">🛍️ Shopping</option>
+<option value="Travel">🚗 Travel</option>
+<option value="Education">📚 Education</option>
+<option value="Sports">⚽ Sports</option>
+<option value="Entertainment">🎮 Entertainment</option>
+<option value="Bills">📄 Bills</option>
+<option value="Other">💰 Other</option>
+</select>
 
-    <!-- INCOME / EXPENSE -->
+<div class="form-actions">
 
-    <section class="two">
+<button class="cancel" onclick="closeExpense()">CANCEL</button>
 
-        <div class="info-card">
+<button class="primary" onclick="saveExpense()">
+SAVE EXPENSE
+</button>
 
-            <div class="icon">💼</div>
+</div>
 
-            <div class="grow">
+<div id="formError" class="form-error"></div>
 
-                <p>MONTHLY INCOME</p>
+</div>
 
-                <h3 id="income">₹0</h3>
+<div id="allExpenses"></div>
 
-            </div>
+</section>
 
-            <button
-                class="small-btn"
-                onclick="setIncome()"
-            >
-                EDIT
-            </button>
 
-        </div>
+<!-- STATS -->
 
+<section id="stats" class="page">
 
-        <div class="info-card">
+<div class="eyebrow">ANALYTICS</div>
 
-            <div class="icon">💸</div>
+<h2 style="font-size:40px;margin-top:7px">
+Weekly Stats
+</h2>
 
-            <div class="grow">
+<p style="color:#858da5;margin-top:7px">
+Understand your spending habits.
+</p>
 
-                <p>TOTAL EXPENSES</p>
+<div class="stat-grid">
 
-                <h3 id="totalExpenses">₹0</h3>
+<div class="stat">
+<p>THIS WEEK</p>
+<h3 id="week">₹0</h3>
+</div>
 
-            </div>
+<div class="stat">
+<p>TRANSACTIONS</p>
+<h3 id="count">0</h3>
+</div>
 
-        </div>
+<div class="stat">
+<p>AVERAGE</p>
+<h3 id="average">₹0</h3>
+</div>
 
-    </section>
+</div>
 
 
-    <!-- NAV -->
+<div class="chart-card">
 
-    <nav class="nav">
+<div class="eyebrow">SPENDING</div>
 
-        <button
-            class="active"
-            onclick="go('home',this)"
-        >
-            🏠 Home
-        </button>
+<h3 style="margin-top:7px;font-size:23px">
+Last 7 Days
+</h3>
 
-        <button
-            onclick="go('expenses',this)"
-        >
-            💸 Expenses
-        </button>
+<div id="chart" class="chart"></div>
 
-        <button
-            onclick="go('stats',this)"
-        >
-            📊 Stats
-        </button>
+</div>
 
-    </nav>
 
+<div class="tip">
 
-    <!-- HOME -->
+<div class="eyebrow">💡 SMART TIP</div>
 
-    <section
-        id="home"
-        class="page active"
-    >
+<h3 id="tip">
+Add expenses to receive spending tips.
+</h3>
 
-        <div class="page-head">
+</div>
 
-            <div>
 
-                <div class="eyebrow">
-                    MONEY TRACKER
-                </div>
+<div style="margin-top:20px">
 
-                <h2>Recent Expenses</h2>
+<div class="eyebrow">CATEGORY BREAKDOWN</div>
 
-                <p>Your latest transactions.</p>
+<h3 style="margin-top:7px;font-size:24px">
+Where your money goes
+</h3>
 
-            </div>
+<div id="categories" class="category-list"></div>
 
-            <button
-                class="add primary"
-                onclick="openExpense()"
-            >
-                + ADD EXPENSE
-            </button>
+</div>
 
-        </div>
-
-
-        <div id="recent"></div>
-
-
-        <div class="notes">
-
-            <div class="eyebrow">
-                QUICK NOTES
-            </div>
-
-            <h2>Money Notes</h2>
-
-            <textarea
-                id="notes"
-                placeholder="Write something about your money..."
-            ></textarea>
-
-            <div class="note-bottom">
-
-                <span id="noteStatus">
-                    Not saved
-                </span>
-
-                <button
-                    class="small-btn"
-                    onclick="saveNotes()"
-                >
-                    SAVE NOTES
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- EXPENSES -->
-
-    <section
-        id="expenses"
-        class="page"
-    >
-
-        <div class="page-head">
-
-            <div>
-
-                <div class="eyebrow">
-                    MONEY TRACKER
-                </div>
-
-                <h2>Expenses</h2>
-
-                <p>Every expense automatically reduces your balance.</p>
-
-            </div>
-
-            <button
-                class="add primary"
-                onclick="openExpense()"
-            >
-                + ADD EXPENSE
-            </button>
-
-        </div>
-
-
-        <!-- FORM -->
-
-        <div
-            id="expenseForm"
-            class="form"
-        >
-
-            <div class="eyebrow">
-                NEW TRANSACTION
-            </div>
-
-            <h3 style="margin-top:7px">
-                Add an expense
-            </h3>
-
-            <input
-                id="title"
-                placeholder="Expense title e.g. Food"
-            >
-
-            <input
-                id="amount"
-                type="number"
-                min="1"
-                placeholder="Amount spent"
-            >
-
-            <select id="category">
-
-                <option value="Food">🍔 Food</option>
-                <option value="Shopping">🛍️ Shopping</option>
-                <option value="Travel">🚗 Travel</option>
-                <option value="Education">📚 Education</option>
-                <option value="Sports">⚽ Sports</option>
-                <option value="Entertainment">🎮 Entertainment</option>
-                <option value="Bills">📄 Bills</option>
-                <option value="Other">💰 Other</option>
-
-            </select>
-
-
-            <div class="form-actions">
-
-                <button
-                    class="cancel"
-                    onclick="closeExpense()"
-                >
-                    CANCEL
-                </button>
-
-                <button
-                    class="primary"
-                    onclick="saveExpense()"
-                >
-                    SAVE EXPENSE
-                </button>
-
-            </div>
-
-            <div
-                id="formError"
-                class="form-error"
-            ></div>
-
-        </div>
-
-
-        <div id="allExpenses"></div>
-
-    </section>
-
-
-    <!-- STATS -->
-
-    <section
-        id="stats"
-        class="page"
-    >
-
-        <div class="eyebrow">
-            ANALYTICS
-        </div>
-
-        <h2 style="font-size:40px;margin-top:7px">
-            Weekly Stats
-        </h2>
-
-        <p style="color:#858da5;margin-top:7px">
-            Understand your spending habits.
-        </p>
-
-
-        <div class="stat-grid">
-
-            <div class="stat">
-
-                <p>THIS WEEK</p>
-
-                <h3 id="week">₹0</h3>
-
-            </div>
-
-
-            <div class="stat">
-
-                <p>TRANSACTIONS</p>
-
-                <h3 id="count">0</h3>
-
-            </div>
-
-
-            <div class="stat">
-
-                <p>AVERAGE</p>
-
-                <h3 id="average">₹0</h3>
-
-            </div>
-
-        </div>
-
-
-        <div class="chart-card">
-
-            <div class="eyebrow">
-                SPENDING
-            </div>
-
-            <h3 style="margin-top:7px;font-size:23px">
-                Last 7 Days
-            </h3>
-
-            <div
-                id="chart"
-                class="chart"
-            ></div>
-
-        </div>
-
-
-        <div class="tip">
-
-            <div class="eyebrow">
-                💡 SMART TIP
-            </div>
-
-            <h3 id="tip">
-                Add expenses to receive spending tips.
-            </h3>
-
-        </div>
-
-
-        <div style="margin-top:20px">
-
-            <div class="eyebrow">
-                CATEGORY BREAKDOWN
-            </div>
-
-            <h3 style="margin-top:7px;font-size:24px">
-                Where your money goes
-            </h3>
-
-            <div
-                id="categories"
-                class="category-list"
-            ></div>
-
-        </div>
-
-    </section>
+</section>
 
 </div>
 
 
 <script>
 
-/* =====================================================
-   FINANCE MANAGER
-   EVERYTHING IS INSIDE THIS ONE FILE
-   PASSWORD = 7890
-===================================================== */
+let income=Number(localStorage.getItem("fm_income"))||0;
+
+let expenses=JSON.parse(
+localStorage.getItem("fm_expenses")||"[]"
+);
+
+let notes=localStorage.getItem("fm_notes")||"";
 
 
-/* DATA */
-
-let income =
-    Number(localStorage.getItem("fm_income")) || 0;
-
-let expenses =
-    JSON.parse(
-        localStorage.getItem("fm_expenses") || "[]"
-    );
-
-let notes =
-    localStorage.getItem("fm_notes") || "";
-
-
-/* HELPERS */
-
-function money(value){
-
-    return "₹" +
-        Number(value).toLocaleString("en-IN");
-
+function money(n){
+return "₹"+Number(n).toLocaleString("en-IN",{
+maximumFractionDigits:2
+});
 }
 
 
 function totalSpent(){
-
-    return expenses.reduce(
-        (sum,e) => sum + Number(e.amount),
-        0
-    );
-
+return expenses.reduce(
+(sum,e)=>sum+Number(e.amount),0
+);
 }
 
 
 function currentBalance(){
-
-    /*
-       THIS IS THE IMPORTANT PART:
-
-       BALANCE = INCOME - ALL EXPENSES
-    */
-
-    return income - totalSpent();
-
+return income-totalSpent();
 }
 
 
 function saveData(){
 
-    localStorage.setItem(
-        "fm_income",
-        income
-    );
+localStorage.setItem("fm_income",income);
 
-    localStorage.setItem(
-        "fm_expenses",
-        JSON.stringify(expenses)
-    );
+localStorage.setItem(
+"fm_expenses",
+JSON.stringify(expenses)
+);
 
-    localStorage.setItem(
-        "fm_notes",
-        notes
-    );
+localStorage.setItem("fm_notes",notes);
 
 }
 
 
-/* LOCK */
+/* PASSWORD */
 
-document
-.getElementById("unlock")
-.addEventListener(
-    "click",
-    unlock
-);
+document.getElementById("unlock")
+.addEventListener("click",unlock);
 
-
-document
-.getElementById("password")
-.addEventListener(
-    "keydown",
-    function(e){
-
-        if(e.key === "Enter"){
-            unlock();
-        }
-
-    }
-);
+document.getElementById("password")
+.addEventListener("keydown",e=>{
+if(e.key==="Enter")unlock();
+});
 
 
 function unlock(){
 
-    const password =
-        document
-        .getElementById("password")
-        .value;
+if(document.getElementById("password").value==="7890"){
 
-    if(password === "7890"){
+document.getElementById("lock")
+.classList.add("hidden");
 
-        document
-        .getElementById("lock")
-        .classList.add("hidden");
+update();
 
-        document
-        .getElementById("app")
-        .classList.remove("hidden");
+}else{
 
-        update();
+document.getElementById("error")
+.textContent="Incorrect password.";
 
-    }else{
-
-        document
-        .getElementById("error")
-        .textContent =
-            "Incorrect password.";
-
-    }
+}
 
 }
 
 
-/* NAVIGATION */
+/* NAV */
 
 function go(page,button){
 
-    document
-    .querySelectorAll(".page")
-    .forEach(
-        p => p.classList.remove("active")
-    );
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
 
-    document
-    .getElementById(page)
-    .classList.add("active");
+document.getElementById(page)
+.classList.add("active");
 
+document.querySelectorAll(".nav button")
+.forEach(b=>b.classList.remove("active"));
 
-    document
-    .querySelectorAll(".nav button")
-    .forEach(
-        b => b.classList.remove("active")
-    );
+button.classList.add("active");
 
-    button.classList.add("active");
-
-
-    if(page === "stats"){
-        updateStats();
-    }
+if(page==="stats")updateStats();
 
 }
 
@@ -1311,176 +1061,111 @@ function go(page,button){
 
 function setIncome(){
 
-    const value =
-        prompt(
-            "Enter your monthly income:"
-        );
+let v=prompt("Enter your monthly income:");
 
-    if(value === null)return;
+if(v===null)return;
 
-    const amount =
-        Number(value);
+let n=Number(v);
 
-    if(
-        !Number.isFinite(amount) ||
-        amount < 0
-    ){
+if(!Number.isFinite(n)||n<0){
 
-        alert("Please enter a valid amount.");
+alert("Enter a valid amount.");
 
-        return;
+return;
 
-    }
+}
 
-    income = amount;
+income=n;
 
-    saveData();
+saveData();
 
-    update();
+update();
 
 }
 
 
-/* EXPENSE FORM */
+/* MANUAL EXPENSE */
 
 function openExpense(){
 
-    document
-    .querySelectorAll(".page")
-    .forEach(
-        p => p.classList.remove("active")
-    );
+go(
+"expenses",
+document.querySelectorAll(".nav button")[1]
+);
 
-    document
-    .getElementById("expenses")
-    .classList.add("active");
+document.getElementById("expenseForm")
+.classList.add("show");
 
-
-    document
-    .querySelectorAll(".nav button")
-    .forEach(
-        b => b.classList.remove("active")
-    );
-
-    document
-    .querySelectorAll(".nav button")[1]
-    .classList.add("active");
-
-
-    document
-    .getElementById("expenseForm")
-    .classList.add("show");
-
-
-    document
-    .getElementById("title")
-    .focus();
+document.getElementById("title").focus();
 
 }
 
 
 function closeExpense(){
 
-    document
-    .getElementById("expenseForm")
-    .classList.remove("show");
+document.getElementById("expenseForm")
+.classList.remove("show");
 
-    document
-    .getElementById("title")
-    .value = "";
-
-    document
-    .getElementById("amount")
-    .value = "";
-
-    document
-    .getElementById("formError")
-    .textContent = "";
+document.getElementById("title").value="";
+document.getElementById("amount").value="";
+document.getElementById("formError").textContent="";
 
 }
 
 
-/* SAVE EXPENSE */
+function addExpense(title,amount,category){
+
+expenses.unshift({
+
+id:Date.now()+Math.random(),
+
+title:title,
+
+amount:Number(amount),
+
+category:category,
+
+date:new Date().toISOString()
+
+});
+
+saveData();
+
+update();
+
+}
+
 
 function saveExpense(){
 
-    const title =
-        document
-        .getElementById("title")
-        .value
-        .trim();
+let title=document.getElementById("title").value.trim();
 
-    const amount =
-        Number(
-            document
-            .getElementById("amount")
-            .value
-        );
+let amount=Number(document.getElementById("amount").value);
 
-    const category =
-        document
-        .getElementById("category")
-        .value;
+let category=document.getElementById("category").value;
 
-    const error =
-        document
-        .getElementById("formError");
+let error=document.getElementById("formError");
 
 
-    if(!title){
+if(!title){
 
-        error.textContent =
-            "Please enter a title.";
+error.textContent="Enter an expense title.";
 
-        return;
+return;
 
-    }
+}
 
+if(!Number.isFinite(amount)||amount<=0){
 
-    if(
-        !Number.isFinite(amount) ||
-        amount <= 0
-    ){
+error.textContent="Enter a valid amount.";
 
-        error.textContent =
-            "Please enter a valid amount.";
+return;
 
-        return;
+}
 
-    }
+addExpense(title,amount,category);
 
-
-    /*
-       ADD EXPENSE
-
-       The balance does NOT need
-       to be manually changed.
-
-       It is automatically calculated:
-
-       income - total expenses
-    */
-
-    expenses.unshift({
-
-        id:Date.now(),
-
-        title:title,
-
-        amount:amount,
-
-        category:category,
-
-        date:new Date().toISOString()
-
-    });
-
-
-    saveData();
-
-    closeExpense();
-
-    update();
+closeExpense();
 
 }
 
@@ -1489,135 +1174,87 @@ function saveExpense(){
 
 function deleteExpense(id){
 
-    expenses =
-        expenses.filter(
-            e => e.id !== id
-        );
+expenses=expenses.filter(e=>e.id!==id);
 
-    saveData();
+saveData();
 
-    update();
+update();
 
 }
 
 
-/* CATEGORY ICON */
+/* ICON */
 
-function categoryIcon(category){
+function categoryIcon(c){
 
-    const icons = {
+return({
 
-        Food:"🍔",
-        Shopping:"🛍️",
-        Travel:"🚗",
-        Education:"📚",
-        Sports:"⚽",
-        Entertainment:"🎮",
-        Bills:"📄",
-        Other:"💰"
+Food:"🍔",
+Shopping:"🛍️",
+Travel:"🚗",
+Education:"📚",
+Sports:"⚽",
+Entertainment:"🎮",
+Bills:"📄",
+Other:"💰"
 
-    };
-
-    return icons[category] || "💰";
+})[c]||"💰";
 
 }
 
 
-/* EXPENSE CARD */
+/* CARDS */
 
-function createExpenseCard(
-    expense,
-    showDelete = true
-){
+function card(e,del=true){
 
-    const card =
-        document.createElement("div");
+let div=document.createElement("div");
 
-    card.className =
-        "expense-card";
+div.className="expense-card";
 
+div.innerHTML=`
 
-    const icon =
-        document.createElement("div");
+<div class="expense-icon">
+${categoryIcon(e.category)}
+</div>
 
-    icon.className =
-        "expense-icon";
+<div class="expense-info">
 
-    icon.textContent =
-        categoryIcon(
-            expense.category
-        );
+<h3>${escapeHTML(e.title)}</h3>
 
+<p>
+${e.category} •
+${new Date(e.date).toLocaleDateString("en-IN")}
+</p>
 
-    const info =
-        document.createElement("div");
+</div>
 
-    info.className =
-        "expense-info";
+<div class="expense-amount">
+-${money(e.amount)}
+</div>
 
+${del?`<button class="delete">×</button>`:""}
 
-    const title =
-        document.createElement("h3");
+`;
 
-    title.textContent =
-        expense.title;
+if(del){
 
+div.querySelector(".delete")
+.onclick=()=>deleteExpense(e.id);
 
-    const details =
-        document.createElement("p");
+}
 
-    details.textContent =
-        expense.category +
-        " • " +
-        new Date(expense.date)
-        .toLocaleDateString(
-            "en-IN",
-            {
-                day:"numeric",
-                month:"short",
-                year:"numeric"
-            }
-        );
+return div;
+
+}
 
 
-    info.appendChild(title);
-    info.appendChild(details);
+function escapeHTML(text){
 
+let d=document.createElement("div");
 
-    const amount =
-        document.createElement("div");
+d.textContent=text;
 
-    amount.className =
-        "expense-amount";
-
-    amount.textContent =
-        "-" + money(expense.amount);
-
-
-    card.appendChild(icon);
-    card.appendChild(info);
-    card.appendChild(amount);
-
-
-    if(showDelete){
-
-        const del =
-            document.createElement("button");
-
-        del.className =
-            "delete";
-
-        del.textContent = "×";
-
-        del.onclick =
-            () => deleteExpense(expense.id);
-
-        card.appendChild(del);
-
-    }
-
-
-    return card;
+return d.innerHTML;
 
 }
 
@@ -1626,103 +1263,73 @@ function createExpenseCard(
 
 function renderExpenses(){
 
-    const all =
-        document
-        .getElementById("allExpenses");
+let all=document.getElementById("allExpenses");
 
-    const recent =
-        document
-        .getElementById("recent");
+let recent=document.getElementById("recent");
 
-
-    all.innerHTML = "";
-    recent.innerHTML = "";
+all.innerHTML="";
+recent.innerHTML="";
 
 
-    if(expenses.length === 0){
+if(!expenses.length){
 
-        const empty = document.createElement("div");
+let empty=document.createElement("div");
 
-        empty.className = "empty";
+empty.className="empty";
 
-        empty.innerHTML = `
-            <div style="font-size:36px">💸</div>
-            <strong>No expenses yet</strong>
-            <div>Add your first expense to start tracking.</div>
-        `;
+empty.innerHTML=`
+<div style="font-size:36px">💸</div>
+<strong>No expenses yet</strong>
+Add your first expense to start tracking.
+`;
 
-        all.appendChild(empty);
+all.appendChild(empty);
 
-        recent.appendChild(
-            empty.cloneNode(true)
-        );
+recent.appendChild(empty.cloneNode(true));
 
-        return;
-
-    }
-
-
-    expenses.forEach(
-        expense => {
-
-            all.appendChild(
-                createExpenseCard(expense,true)
-            );
-
-        }
-    );
-
-
-    expenses
-    .slice(0,3)
-    .forEach(
-        expense => {
-
-            recent.appendChild(
-                createExpenseCard(expense,false)
-            );
-
-        }
-    );
+return;
 
 }
 
 
-/* SEVEN DAYS */
+expenses.forEach(e=>all.appendChild(card(e,true)));
 
-function getDays(){
+expenses.slice(0,3)
+.forEach(e=>recent.appendChild(card(e,false)));
 
-    const days = [];
-
-    const today = new Date();
-
-    today.setHours(0,0,0,0);
+}
 
 
-    for(let i=6;i>=0;i--){
+/* DAYS */
 
-        const d = new Date(today);
+function days(){
 
-        d.setDate(
-            today.getDate() - i
-        );
+let result=[];
 
-        days.push(d);
+let today=new Date();
 
-    }
+today.setHours(0,0,0,0);
 
-    return days;
+for(let i=6;i>=0;i--){
+
+let d=new Date(today);
+
+d.setDate(today.getDate()-i);
+
+result.push(d);
+
+}
+
+return result;
 
 }
 
 
 function sameDay(a,b){
 
-    return(
-        a.getFullYear() === b.getFullYear() &&
-        a.getMonth() === b.getMonth() &&
-        a.getDate() === b.getDate()
-    );
+return a.getFullYear()===b.getFullYear()
+&&a.getMonth()===b.getMonth()
+&&a.getDate()===b.getDate();
 
 }
 
@@ -1731,431 +1338,500 @@ function sameDay(a,b){
 
 function updateStats(){
 
-    const days = getDays();
+let ds=days();
 
+let vals=ds.map(day=>
+expenses
+.filter(e=>sameDay(new Date(e.date),day))
+.reduce((s,e)=>s+Number(e.amount),0)
+);
 
-    const values =
-        days.map(
-            day => {
+let weekTotal=vals.reduce((a,b)=>a+b,0);
 
-                return expenses
-                .filter(
-                    e =>
-                    sameDay(
-                        new Date(e.date),
-                        day
-                    )
-                )
-                .reduce(
-                    (sum,e) =>
-                    sum + Number(e.amount),
-                    0
-                );
+let weekly=expenses.filter(e=>
+new Date(e.date)>=ds[0]
+);
 
-            }
-        );
+document.getElementById("week").textContent=
+money(weekTotal);
 
+document.getElementById("count").textContent=
+weekly.length;
 
-    const weekTotal =
-        values.reduce(
-            (a,b) => a+b,
-            0
-        );
+document.getElementById("average").textContent=
+money(weekly.length?weekTotal/weekly.length:0);
 
+drawChart(ds,vals);
 
-    const weekExpenses =
-        expenses.filter(
-            e => {
+drawCategories();
 
-                const date =
-                    new Date(e.date);
-
-                const first =
-                    days[0];
-
-                return date >= first;
-
-            }
-        );
-
-
-    document
-    .getElementById("week")
-    .textContent =
-        money(weekTotal);
-
-
-    document
-    .getElementById("count")
-    .textContent =
-        weekExpenses.length;
-
-
-    document
-    .getElementById("average")
-    .textContent =
-        money(
-            weekExpenses.length
-            ? weekTotal / weekExpenses.length
-            : 0
-        );
-
-
-    drawChart(
-        days,
-        values
-    );
-
-
-    drawCategories();
-
-    createTip(
-        weekTotal
-    );
+makeTip(weekTotal);
 
 }
 
 
-/* CHART */
+/* GRAPH */
 
-function drawChart(
-    days,
-    values
-){
+function drawChart(ds,vals){
 
-    const chart =
-        document
-        .getElementById("chart");
+let chart=document.getElementById("chart");
 
-    chart.innerHTML = "";
+chart.innerHTML="";
 
+let max=Math.max(...vals,1);
 
-    const max =
-        Math.max(
-            ...values,
-            1
-        );
+ds.forEach((d,i)=>{
 
+let col=document.createElement("div");
 
-    days.forEach(
-        (day,index) => {
+col.className="bar-column";
 
-            const column =
-                document.createElement("div");
+let value=document.createElement("div");
 
-            column.className =
-                "bar-column";
+value.className="bar-value";
 
+value.textContent=vals[i]?money(vals[i]):"";
 
-            const value =
-                document.createElement("div");
+let bar=document.createElement("div");
 
-            value.className =
-                "bar-value";
+bar.className="bar";
 
-            value.textContent =
-                values[index]
-                ? money(values[index])
-                : "";
+bar.style.height=
+Math.max(3,(vals[i]/max)*190)+"px";
 
+let label=document.createElement("div");
 
-            const bar =
-                document.createElement("div");
+label.className="bar-day";
 
-            bar.className =
-                "bar";
+label.textContent=d.toLocaleDateString(
+"en-IN",
+{weekday:"short"}
+);
 
+col.append(value,bar,label);
 
-            bar.style.height =
-                Math.max(
-                    3,
-                    values[index] / max * 190
-                ) + "px";
+chart.appendChild(col);
 
-
-            const label =
-                document.createElement("div");
-
-            label.className =
-                "bar-day";
-
-            label.textContent =
-                day.toLocaleDateString(
-                    "en-IN",
-                    {
-                        weekday:"short"
-                    }
-                );
-
-
-            column.appendChild(value);
-            column.appendChild(bar);
-            column.appendChild(label);
-
-            chart.appendChild(column);
-
-        }
-    );
+});
 
 }
 
 
-/* CATEGORY BREAKDOWN */
+/* CATEGORIES */
 
 function drawCategories(){
 
-    const container =
-        document
-        .getElementById("categories");
+let box=document.getElementById("categories");
 
-    container.innerHTML = "";
+box.innerHTML="";
 
+let totals={};
 
-    if(!expenses.length){
+expenses.forEach(e=>{
+totals[e.category]=
+(totals[e.category]||0)+Number(e.amount);
+});
 
-        container.innerHTML =
-            `<div class="empty">
-                No category data yet.
-            </div>`;
+if(!Object.keys(totals).length){
 
-        return;
+box.innerHTML=
+`<div class="empty">No category data yet.</div>`;
 
-    }
+return;
 
+}
 
-    const totals = {};
+let max=Math.max(...Object.values(totals),1);
 
+Object.entries(totals)
+.sort((a,b)=>b[1]-a[1])
+.forEach(([cat,val])=>{
 
-    expenses.forEach(
-        e => {
+let row=document.createElement("div");
 
-            totals[e.category] =
-                (totals[e.category] || 0) +
-                Number(e.amount);
+row.className="category-row";
 
-        }
-    );
+row.innerHTML=`
 
+<div class="category-top">
 
-    const max =
-        Math.max(
-            ...Object.values(totals),
-            1
-        );
+<span>
+${categoryIcon(cat)} ${cat}
+</span>
 
+<b>${money(val)}</b>
 
-    Object.entries(totals)
-    .sort(
-        (a,b) => b[1]-a[1]
-    )
-    .forEach(
-        ([category,value]) => {
+</div>
 
-            const row =
-                document.createElement("div");
+<div class="progress">
 
-            row.className =
-                "category-row";
+<span style="width:${val/max*100}%"></span>
 
+</div>
+`;
 
-            const top =
-                document.createElement("div");
+box.appendChild(row);
 
-            top.className =
-                "category-top";
-
-
-            const name =
-                document.createElement("span");
-
-            name.textContent =
-                categoryIcon(category) +
-                " " +
-                category;
-
-
-            const amount =
-                document.createElement("b");
-
-            amount.textContent =
-                money(value);
-
-
-            top.appendChild(name);
-            top.appendChild(amount);
-
-
-            const progress =
-                document.createElement("div");
-
-            progress.className =
-                "progress";
-
-
-            const span =
-                document.createElement("span");
-
-            span.style.width =
-                (value/max*100) + "%";
-
-
-            progress.appendChild(span);
-
-            row.appendChild(top);
-            row.appendChild(progress);
-
-            container.appendChild(row);
-
-        }
-    );
+});
 
 }
 
 
-/* SMART TIP */
+/* TIP */
 
-function createTip(weekTotal){
+function makeTip(total){
 
-    const element =
-        document
-        .getElementById("tip");
+let tip=document.getElementById("tip");
 
+if(!expenses.length){
 
-    if(!expenses.length){
+tip.textContent=
+"Add expenses and I'll analyse your spending.";
 
-        element.textContent =
-            "Add some expenses and I'll analyse your spending.";
+return;
 
-        return;
+}
 
-    }
+if(income<=0){
 
+tip.textContent=
+"Set your income to get more useful spending analysis.";
 
-    if(income <= 0){
+return;
 
-        element.textContent =
-            "Set your monthly income so your spending can be compared with your available money.";
+}
 
-        return;
+if(currentBalance()<0){
 
-    }
+tip.textContent=
+"⚠️ Your expenses are currently higher than your income. Review your biggest spending categories.";
 
+}else if(total/income>=.3){
 
-    const percentage =
-        weekTotal / income * 100;
+tip.textContent=
+"Your recent spending is fairly high compared with your income. Consider checking your largest expense category.";
 
+}else{
 
-    if(currentBalance() < 0){
+tip.textContent=
+"👍 Your spending is currently within a reasonable range. Keep tracking it regularly.";
 
-        element.textContent =
-            "⚠️ Your expenses are higher than your income. Review your recent spending.";
-
-    }
-    else if(percentage >= 30){
-
-        element.textContent =
-            "Your spending this week is relatively high compared with your monthly income. Consider reviewing your biggest expense categories.";
-
-    }
-    else if(percentage >= 15){
-
-        element.textContent =
-            "Your spending looks moderate. Keep tracking it regularly so you stay in control.";
-
-    }
-    else{
-
-        element.textContent =
-            "Nice! Your recent spending is relatively low compared with your monthly income.";
-
-    }
+}
 
 }
 
 
 /* NOTES */
 
-document
-.getElementById("notes")
-.value = notes;
-
+document.getElementById("notes").value=notes;
 
 function saveNotes(){
 
-    notes =
-        document
-        .getElementById("notes")
-        .value;
+notes=document.getElementById("notes").value;
 
-    saveData();
+saveData();
 
-    document
-    .getElementById("noteStatus")
-    .textContent =
-        "✓ Notes saved";
+document.getElementById("noteStatus")
+.textContent="✓ Notes saved";
 
 }
 
 
-/* UPDATE EVERYTHING */
+/* UPDATE */
 
 function update(){
 
-    const spent =
-        totalSpent();
+document.getElementById("income").textContent=
+money(income);
 
-    const balance =
-        currentBalance();
+document.getElementById("totalExpenses").textContent=
+money(totalSpent());
 
+document.getElementById("balance").textContent=
+money(currentBalance());
 
-    document
-    .getElementById("income")
-    .textContent =
-        money(income);
+document.getElementById("balanceStatus")
+.textContent=
+currentBalance()<0
+?"⚠️ Spending is above income."
+:"● Available after expenses";
 
+renderExpenses();
 
-    document
-    .getElementById("totalExpenses")
-    .textContent =
-        money(spent);
-
-
-    document
-    .getElementById("balance")
-    .textContent =
-        money(balance);
-
-
-    const status =
-        document
-        .getElementById("balanceStatus");
-
-
-    if(balance < 0){
-
-        status.textContent =
-            "⚠️ You have spent more than your income.";
-
-    }
-    else if(balance === 0){
-
-        status.textContent =
-            "Your available balance is ₹0.";
-
-    }
-    else{
-
-        status.textContent =
-            "● Available after expenses";
-
-    }
-
-
-    renderExpenses();
-
-    updateStats();
+updateStats();
 
 }
+
+
+/* =====================================================
+   RECEIPT SCANNER
+===================================================== */
+
+const receiptInput=
+document.getElementById("receiptInput");
+
+
+receiptInput.addEventListener("change",async function(){
+
+let file=this.files[0];
+
+if(!file)return;
+
+
+let status=
+document.getElementById("scanStatus");
+
+let preview=
+document.getElementById("preview");
+
+let image=
+document.getElementById("receiptImage");
+
+let textBox=
+document.getElementById("ocrText");
+
+
+image.src=URL.createObjectURL(file);
+
+preview.classList.add("show");
+
+status.textContent=
+"⏳ Reading receipt... This may take a little while.";
+
+
+textBox.textContent=
+"Starting OCR...";
+
+
+try{
+
+const worker=
+await Tesseract.createWorker("eng");
+
+const result=
+await worker.recognize(file);
+
+const text=
+result.data.text||"";
+
+
+textBox.textContent=
+text||"No text detected.";
+
+
+await worker.terminate();
+
+
+let amount=
+findAmount(text);
+
+let title=
+findMerchant(text);
+
+
+document.getElementById("scanAmount")
+.value=amount||"";
+
+
+document.getElementById("scanTitle")
+.value=title||"Receipt expense";
+
+
+status.textContent=
+amount
+?"✓ Receipt scanned. Check the detected amount before saving."
+:"✓ Scan complete. Please enter/check the amount manually.";
+
+
+}catch(err){
+
+console.error(err);
+
+status.textContent=
+"❌ Could not read this receipt. Try a clearer photo.";
+
+}
+
+});
+
+
+/* FIND MONEY */
+
+function findAmount(text){
+
+let lines=
+text
+.split("\n")
+.map(x=>x.trim())
+.filter(Boolean);
+
+
+/*
+Look for words commonly near
+the final amount.
+*/
+
+let priority=[];
+
+for(let line of lines){
+
+if(
+/total|grand total|amount due|net total|balance due/i
+.test(line)
+){
+
+let matches=
+line.match(
+/(?:₹|rs\.?|inr)?\s*[0-9][0-9,]*(?:\.[0-9]{1,2})?/gi
+);
+
+if(matches){
+
+priority.push(
+...matches
+.map(cleanMoney)
+.filter(n=>n>0)
+);
+
+}
+
+}
+
+}
+
+
+if(priority.length){
+
+return Math.max(...priority);
+
+}
+
+
+/* fallback */
+
+let nums=[];
+
+let matches=
+text.match(
+/(?:₹|rs\.?|inr)?\s*[0-9][0-9,]*(?:\.[0-9]{1,2})?/gi
+)||[];
+
+matches.forEach(x=>{
+
+let n=cleanMoney(x);
+
+if(n>0 && n<10000000)
+nums.push(n);
+
+});
+
+
+return nums.length?Math.max(...nums):"";
+
+}
+
+
+function cleanMoney(value){
+
+return Number(
+value
+.replace(/₹|rs\.?|inr/gi,"")
+.replace(/,/g,"")
+.trim()
+);
+
+}
+
+
+/* FIND MERCHANT */
+
+function findMerchant(text){
+
+let lines=
+text
+.split("\n")
+.map(x=>x.trim())
+.filter(x=>x.length>2);
+
+
+for(let line of lines){
+
+if(
+!/total|tax|gst|invoice|receipt|date|cash|change|amount|qty|price/i
+.test(line)
+&&
+!/^\d+$/.test(line)
+){
+
+return line.substring(0,45);
+
+}
+
+}
+
+return "Receipt expense";
+
+}
+
+
+/* SAVE SCANNED */
+
+function saveScannedExpense(){
+
+let title=
+document.getElementById("scanTitle")
+.value.trim();
+
+let amount=
+Number(
+document.getElementById("scanAmount").value
+);
+
+let category=
+document.getElementById("scanCategory").value;
+
+
+if(!title){
+
+alert("Enter/check the expense title.");
+
+return;
+
+}
+
+if(!Number.isFinite(amount)||amount<=0){
+
+alert("Please check the detected amount.");
+
+return;
+
+}
+
+
+addExpense(
+title,
+amount,
+category
+);
+
+
+document.getElementById("preview")
+.classList.remove("show");
+
+document.getElementById("scanStatus")
+.textContent=
+"✓ Expense added successfully.";
+
+document.getElementById("receiptInput")
+.value="";
+
+}
+
+
+/* INITIAL */
+
+document.getElementById("app")
+.classList.remove("hidden");
 
 </script>
 
